@@ -103,12 +103,11 @@
 
   /* before / after (original drag logic preserved) */
   .ba-hint{text-align:center;color:var(--muted);font-size:14px;margin:-6px 0 6px}
-  /* תפר הכניסה לאזור הכהה. במקום קו חד בין שנהב לכהה — הדרגה של 130px
-     שמתחילה בדיוק בצבע רקע הדף ומתכהה. אחרי נקודת העצירה הצבע נשאר כהה,
-     ולכן אין צורך בשכבה נוספת */
+  /* השאלון שמעליה כהה עכשיו, ולכן אין כאן תפר. הדרגה מהבהיר הייתה יוצרת
+     פס בהיר באמצע האזור הכהה. המרווח העליון בוטל מאותה סיבה */
   .ba-block{position:relative;left:50%;right:50%;margin-inline:-50vw;width:100vw;
-    background:linear-gradient(180deg,var(--pearl) 0,var(--dark-section) 130px);
-    margin-top:64px;padding-top:clamp(48px,8vw,56px);overflow:hidden}
+    background:var(--dark-section);
+    margin-top:0;padding-top:clamp(48px,8vw,56px);overflow:hidden}
   .ba-head{max-width:680px;margin:0 auto;padding:0 22px}
   .ba-block .eyebrow{color:#efe6dc;margin-top:0}
   .ba-block .eyebrow .rule{background:linear-gradient(90deg,rgba(239,230,220,.35),transparent)}
@@ -597,14 +596,164 @@
   /* פסקה אישית של נטע — מתחת לבחירת התאריך ביומן */
   @media (max-width:600px){
     .bk-backdrop.on{background:rgba(35,31,28,.4)}
-    .bk-pop{position:fixed;top:auto;bottom:0;left:0;right:0;border-radius:20px 20px 0 0;
+    /* בגיליון התחתון הפופאובר מכסה את מקום השדה. השדה יושב ב-z-index 52
+       (כדי שלחיצה עליו לא תיבלע ברקע), ולכן הגיליון והרקע חייבים לעלות מעליו */
+    .bk-pop{position:fixed;top:auto;bottom:0;left:0;right:0;border-radius:20px 20px 0 0;z-index:60;
       padding:20px 18px calc(20px + env(safe-area-inset-bottom));animation:sheetUp .3s var(--ease)}
+    .bk-backdrop{z-index:55}
     @keyframes sheetUp{from{transform:translateY(100%)}to{transform:none}}
     .bk-cell{font-size:16px}
   }
   @media (prefers-reduced-motion:reduce){
     .bk-pop,.bk-times-wrap,.bk-confirm,.bk-done,.bk-check svg path,.bk-go,.bk-cell,.bk-form-sleeve{animation:none!important;transition:none!important}
     .bk-check svg path{stroke-dashoffset:0}
+  }
+
+  /* ============================================================
+     שאלון על רקע כהה — עיצוב עורכי
+     כל הכללים מקוננים תחת .qualify-section כדי לגבור על העיצוב
+     הבהיר הקיים בלי למחוק אותו, ובלי לדלוף לשאר הדף.
+     ============================================================ */
+  .qualify-section{
+    --q-bg:#2b2521; --q-card:#37302a; --q-card-border:#4a4038; --q-gold:#c9a06b;
+    --q-ivory:#f5efe6; --q-text:#efe9df; --q-sub:#b8ada0;
+  }
+  /* פריסה במלוא הרוחב. הגיבור מעליה בהיר, ולכן התפר העליון מדורג */
+  main > .qualify-section:first-child{
+    position:relative;left:50%;right:50%;margin-inline:-50vw;width:100vw;max-width:none;
+    margin-top:0;padding:0;
+    background:linear-gradient(180deg,var(--pearl) 0,var(--q-bg) 100px);
+  }
+  /* הריפוד העליון גדול מאורך ההדרגה בכוונה — אחרת תווית השלב הזהובה
+     נוחתת על הגוון הבהיר של התפר והניגודיות שלה נשברת */
+  .qualify-section .qualify{
+    max-width:720px;margin-inline:auto;padding:clamp(112px,13vw,150px) 20px clamp(64px,9vw,110px);
+    text-align:center;gap:0;
+  }
+  /* הכרטיס הבהיר מתבטל — השאלות יושבות ישירות על הרקע */
+  .qualify-section #book{
+    background:none;border:0;box-shadow:none;padding:0;margin:0;max-width:100%;
+  }
+
+  /* --- כותרת השלב --- */
+  .qualify-section .qcount{
+    color:var(--q-gold);font-size:13px;letter-spacing:.35em;font-weight:500;
+    font-family:var(--sans);margin:0 0 18px}
+  .qualify-section #q-screen > h2{
+    font-family:var(--serif);color:var(--q-ivory);font-size:clamp(30px,4.5vw,44px);
+    font-weight:500;line-height:1.3;margin:0 0 16px}
+  .qualify-section .qlead{
+    color:var(--q-sub);font-size:16px;font-family:var(--sans);font-weight:400;margin:0 0 36px}
+
+  /* --- מחוון ההתקדמות --- */
+  .qualify-section .qpills{
+    display:flex;flex-direction:row-reverse;justify-content:center;gap:10px;margin:0 0 44px}
+  .qualify-section .qpills i{
+    width:22px;height:7px;border-radius:99px;background:#5a5148;
+    transition:width .3s ease,background .3s ease}
+  .qualify-section .qpills i.now{width:46px;background:var(--q-gold)}
+  .qualify-section .qpills i.done{background:#8a7355}
+
+  /* --- שאלה --- */
+  .qualify-section .q{border-top:0;padding:0 0 8px}
+  .qualify-section .q-head{justify-content:center;text-align:center;flex-direction:column;gap:10px}
+  .qualify-section .qt{
+    font-family:var(--serif);color:var(--q-ivory);font-size:clamp(24px,4vw,34px);
+    font-weight:500;line-height:1.3}
+  .qualify-section .q.answered .qt{font-size:clamp(17px,3vw,20px);color:var(--q-sub)}
+  .qualify-section .qhint{color:var(--q-sub);font-size:16px;margin:0 0 20px}
+  /* שבב התשובה שנבחרה — גרסה כהה */
+  .qualify-section .q-chosen{
+    background:rgba(201,160,107,.12);border-color:rgba(201,160,107,.35);color:var(--q-gold)}
+  .qualify-section .q-chosen .ck{background:var(--q-gold);color:#2b2521}
+
+  /* --- כרטיסי תשובה --- */
+  .qualify-section .opts{
+    grid-template-columns:1fr;gap:16px;max-width:700px;margin-inline:auto;padding-top:20px}
+  .qualify-section .opt span{
+    display:block;min-height:0;background:var(--q-card);border:1px solid var(--q-card-border);
+    border-radius:14px;padding:26px 32px;text-align:right;
+    color:var(--q-text);font-size:17px;font-weight:600;font-family:var(--sans);line-height:1.4;
+    box-shadow:none;transition:all .2s ease}
+  /* עיגול הרדיו יורד — מצב המסגרת הוא הסימון היחיד */
+  .qualify-section .opt span::before{display:none}
+  @media (hover:hover){
+    .qualify-section .opt span:hover{
+      border-color:rgba(201,160,107,.55);background:#3d352e;transform:none}
+  }
+  .qualify-section .opt input:checked+span{
+    border-color:var(--q-gold);background:#3d352e;color:var(--q-text);box-shadow:none}
+  .qualify-section .opt input:focus-visible+span{outline:2px solid var(--q-gold);outline-offset:2px}
+  .qualify-section .opt span:active{transform:none}
+
+  /* --- מעבר בין שלבים: העלמה והסטה קלה למעלה --- */
+  .qualify-section .qw{transform:translateY(12px);
+    transition:grid-template-rows .35s ease,opacity .35s ease,transform .35s ease}
+  .qualify-section .qw.open{transform:none}
+
+  /* --- מסך היומן --- */
+  .qualify-section .qres .qbadge{background:rgba(201,160,107,.14);color:var(--q-gold)}
+  .qualify-section .qres h2{font-family:var(--serif);color:var(--q-ivory);
+    font-size:clamp(26px,4vw,36px);font-weight:500}
+  .qualify-section .qres p{color:var(--q-sub)!important;font-size:16px}
+  .qualify-section .bk-microlabel{color:var(--q-gold)}
+  .qualify-section .bk-dia{background:var(--q-gold)}
+  .qualify-section .bk-field{
+    background:var(--q-card);border-color:var(--q-card-border);color:var(--q-ivory);box-shadow:none}
+  .qualify-section .bk-field:hover,.qualify-section .bk-field.open{border-color:var(--q-gold)}
+  .qualify-section .bk-field-text.placeholder{color:var(--q-sub)}
+  .qualify-section .bk-cal-ico,.qualify-section .bk-chev{color:var(--q-gold)}
+
+  .qualify-section .bk-pop{
+    background:#332c26;border:1px solid var(--q-card-border);border-radius:18px;padding:32px}
+  .qualify-section .bk-month{color:var(--q-ivory);font-weight:600}
+  .qualify-section .bk-nav{background:var(--q-card);border-color:var(--q-card-border);color:var(--q-ivory)}
+  .qualify-section .bk-nav:disabled{color:#6b6156}
+  .qualify-section .bk-dow span{color:#8a8075;font-size:14px}
+  .qualify-section .bk-cell{color:#6b6156;background:none;aspect-ratio:1;height:auto}
+  .qualify-section .bk-cell.avail{
+    background:#3f372f;border-radius:12px;color:var(--q-ivory);font-weight:600}
+  .qualify-section .bk-cell.avail:hover{background:#4a4038}
+  .qualify-section .bk-cell.sel{border:1px solid var(--q-gold);background:#3f372f!important;color:var(--q-ivory)!important}
+  .qualify-section .bk-cell.full{background:rgba(176,82,75,.16);color:#c98d86}
+  .qualify-section .bk-cell.today{box-shadow:inset 0 0 0 1.5px rgba(201,160,107,.5)}
+  .qualify-section .bk-legend{color:var(--q-gold);font-size:14px}
+  .qualify-section .bk-legend .dot{background:#3f372f;border-color:var(--q-card-border)}
+
+  .qualify-section .bk-times-label{color:var(--q-sub)}
+  .qualify-section .bk-chip{
+    background:var(--q-card);border:1px solid var(--q-card-border);border-radius:12px;
+    padding:14px 22px;color:var(--q-text);font-weight:600}
+  .qualify-section .bk-chip:hover{border-color:rgba(201,160,107,.55);background:#3d352e}
+  .qualify-section .bk-chip.sel{background:#3d352e;border-color:var(--q-gold);color:var(--q-ivory);box-shadow:none}
+  .qualify-section .bk-chip.taken{background:rgba(176,82,75,.14);border-color:rgba(176,82,75,.3);color:#c98d86}
+
+  .qualify-section .bk-summary{color:var(--q-ivory)}
+  .qualify-section .bk-form-title{color:var(--q-ivory)}
+  .qualify-section .bkf span{color:var(--q-sub)}
+  .qualify-section .bkf input{
+    background:var(--q-card);border:1px solid var(--q-card-border);border-radius:12px;
+    color:var(--q-ivory);padding:16px 20px}
+  .qualify-section .bkf input::placeholder{color:#8a8075}
+  .qualify-section .bkf input:focus{border-color:var(--q-gold);box-shadow:none;outline:none}
+  .qualify-section .bk-identity{background:var(--q-card);border-color:var(--q-card-border);color:var(--q-sub)}
+  .qualify-section .bk-id-text b{color:var(--q-ivory)}
+  .qualify-section .bk-details{border-top-color:var(--q-card-border)}
+  .qualify-section .bk-offline b{color:var(--q-ivory)}
+  .qualify-section .bk-offline span{color:var(--q-sub)}
+
+  /* כפתורי הפעולה — זהב על כהה במקום פחם על בהיר */
+  .qualify-section .qcta,.qualify-section .bk-go{
+    background:var(--q-gold);color:#2b2521;box-shadow:none}
+  .qualify-section .qcta:not(:disabled):hover,.qualify-section .bk-go:not(:disabled):hover{
+    background:#d8b17c;box-shadow:none}
+  .qualify-section .qcta:disabled,.qualify-section .bk-go:disabled{
+    background:#4a4038;color:#8a8075}
+
+  @media (max-width:400px){
+    .qualify-section .opt span{padding:20px 20px;font-size:16px}
+    .qualify-section .bk-pop{padding:20px 16px}
+    .qualify-section .qualify{padding-inline:20px}
   }
 </style>
 </head>
@@ -640,8 +789,8 @@
     <div class="qualify">
       <section class="card book" id="book" aria-label="שאלון וקביעת שיחה">
       <div id="q-screen">
-        <div class="qbar" aria-hidden="true"><i id="qFill"></i></div>
         <div class="qcount" id="qCount" dir="rtl">שלב 1 מתוך 3</div>
+        <div class="qpills" id="qPills" aria-hidden="true"><i></i><i></i><i></i></div>
         <h2>כמה שאלות קצרות ונקבע</h2>
         <p class="qlead">פחות מדקה — ובסוף נקבע שיחת היכרות, ללא עלות וללא התחייבות. ככה אני מגיעה לשיחה כשאני כבר מבינה את הפרויקט שלכם.</p>
 
@@ -1262,13 +1411,16 @@
     };
     var qws=[].slice.call(document.querySelectorAll('#q-screen .qw'));
     var bookScreen=document.getElementById('book-screen'), nofitScreen=document.getElementById('nofit-screen');
-    var fill=document.getElementById('qFill'), count=document.getElementById('qCount');
+    var pills=document.getElementById('qPills'), count=document.getElementById('qCount');
     function hideBooking(){bookScreen.classList.remove('show');nofitScreen.classList.remove('show');}
 
     function answered(){return order.reduce(function(a,k){return a+(ans[k]?1:0);},0);}
     function progress(){
       var c=answered();
-      fill.style.width=(c/3*100)+'%';
+      /* גלולה אחת לכל שלב: שהושלם, הנוכחי, ומה שלפניו. אין יותר פס מתמלא */
+      [].forEach.call(pills.children,function(p,i){
+        p.className = i<c ? 'done' : (i===c ? 'now' : '');
+      });
       count.textContent = c<3 ? ('שלב '+(c+1)+' מתוך 3') : 'כל הפרטים מולאו';
     }
     function reveal(i){
