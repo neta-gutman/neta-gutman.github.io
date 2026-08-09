@@ -240,22 +240,24 @@
   .tst.in .tst-card:nth-child(5){transition-delay:.36s,.36s,0s}
   @media (prefers-reduced-motion:reduce){.tst-card{opacity:1;transform:none;transition:none}}
 
-  /* כרטיסי צילומי מסך — תמונה ממוסגרת על פספרטו שנהב */
-  .tst-shot{background:var(--card-bg);border:1px solid rgba(255,255,255,.07);
-    box-shadow:0 26px 58px rgba(0,0,0,.40), 0 8px 20px rgba(0,0,0,.22);
+  /* כרטיסי צילומי מסך — משטח כהה מוגבה שמתמזג עם רקע הסקשן,
+     במקום פספרטו שנהב שקפץ מהרצועה הכהה */
+  .tst-shot{background:#35312d;border:1px solid rgba(200,169,106,.12);
+    box-shadow:0 8px 30px rgba(0,0,0,.35);
     padding:24px;cursor:zoom-in;
     display:flex;flex-direction:column;gap:10px;
     transition:opacity .7s var(--ease),transform .7s var(--ease),box-shadow .25s var(--ease)}
-  .tst.in .tst-shot:hover{box-shadow:0 34px 72px rgba(0,0,0,.5), 0 10px 24px rgba(0,0,0,.28);
+  .tst.in .tst-shot:hover{box-shadow:0 14px 40px rgba(0,0,0,.4);
     transform:translateY(-3px)}
   .tst-shot:focus-visible{outline:2px solid var(--brass);outline-offset:4px}
   .tst-shot-in{flex:1 1 auto;min-height:0;display:flex;align-items:center;justify-content:center}
   .tst-shot-in img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;
     border:1px solid rgba(43,40,37,.08);border-radius:10px;
     box-shadow:0 8px 24px rgba(43,40,37,.10)}
+  /* על כרטיס כהה הטקסט האפור הכהה נעלם — הופך לבהיר באותה עוצמת עמעום */
   .tst-meta{flex:0 0 auto;display:flex;align-items:center;gap:7px;
-    color:rgba(43,40,37,.45);font-size:11.5px;letter-spacing:.5px;font-weight:600}
-  .tst-meta svg{width:18px;height:18px;flex:0 0 auto;fill:rgba(43,40,37,.35)}
+    color:rgba(240,236,228,.55);font-size:11.5px;letter-spacing:.5px;font-weight:600}
+  .tst-meta svg{width:18px;height:18px;flex:0 0 auto;fill:rgba(240,236,228,.42)}
   @media (prefers-reduced-motion:reduce){.tst.in .tst-shot:hover{transform:none}}
 
   /* ניווט */
