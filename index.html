@@ -82,6 +82,9 @@
   .hero-cta:hover .hc-chev{transform:translateX(-4px)}
   .hc-sub{font-size:clamp(12px,3.2vw,13px);opacity:.75;letter-spacing:.3px;line-height:1.3;text-align:center}
   @media (prefers-reduced-motion:reduce){.hero-cta,.hc-chev{transition:none}.hero-cta:hover{transform:none}.hero-cta:hover .hc-chev{transform:none}}
+  /* הקריאה לפעולה שסוגרת את הדף. משתמשת בסגנון הכפתור של הגיבור כדי
+     שהשפה העיצובית תישאר אחת, ומרווחת מהציטוט שמעליה ומהפוטר שמתחתיה */
+  .closing-cta{text-align:center;margin:clamp(26px,5vw,38px) 0 clamp(6px,1.5vw,10px)}
 
   .greet{background:var(--card-bg);border:1px solid var(--line);border-radius:16px;
     padding:14px 20px;margin:8px 0 4px;font-size:16px;color:var(--accent-deep);
@@ -408,7 +411,9 @@
     color:var(--accent-deep);font-size:14px;margin-bottom:6px}
   footer a{color:var(--accent-deep);font-weight:600}
   .ftag{font-family:var(--serif);font-size:15px;color:var(--body);margin:2px 0 4px}
-  .social{display:flex;justify-content:center;gap:14px;margin:14px 0 20px}
+  /* שורת השם הכפולה הוסרה מתחת לאייקונים — המרווח התחתון צומצם בהתאם,
+     אחרת נשאר חלל של שורה שלמה לפני פרטי הקשר */
+  .social{display:flex;justify-content:center;gap:14px;margin:14px 0 10px}
   .social a{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--card-bg);
     display:flex;align-items:center;justify-content:center;color:var(--accent-deep);
     transition:.2s var(--ease);box-shadow:var(--shadow-sm)}
@@ -421,7 +426,7 @@
   .qualify-section{max-width:980px;margin:clamp(56px,9vw,78px) auto 0;padding:0 22px}
   /* הסקשן פותח עכשיו את הדף מיד אחרי הגיבור, שכבר יש לו ריפוד תחתון.
      מרווח הפתיחה המלא נועד להפריד מהציטוט שקדם לו במיקום הישן ולכן מצומצם כאן */
-  main > .qualify-section:first-child{margin-top:clamp(24px,4vw,34px)}
+  main > .qualify-section:first-child{margin-top:clamp(6px,1.5vw,14px)}
   /* אחרי הסרת בלוק הפתיחה נשאר בסקשן רק כרטיס השאלון. הגריד הדו-טורי הוסר —
      טור אחד, והכרטיס ממורכז ברוחב טופס נוח כדי ששורות התשובות ורשת היומן
      לא יימתחו לרוחב הסקשן המלא. ‎margin-block‎ ולא ‎margin‎ בדסקטופ, אחרת
@@ -934,6 +939,15 @@
     <section class="card quote-card rev" aria-label="הגישה של נטע">
       <p>בכל בית אותו אני מתכננת אני קודם כל רואה אתכם, את האנשים שיחיו בו, את מי שאתם, את מה שחשוב לכם, ואת מה שעושה לכם הכי טוב. יחד נבנה חלום שמותאם בדיוק אליכם. אני כאן כדי לוודא שהבית יהפוך למקום שמרחיב לכם את הלב כל יום מחדש</p>
     </section>
+
+    <!-- סוגר את הדף בקריאה לפעולה. מי שגלל עד לכאן קרא הכל וכבר לא רואה
+         את היומן, ולכן מחזירים אותו אליו במקום להשאיר אותו בפוטר -->
+    <div class="closing-cta rev">
+      <a href="#book" class="hero-cta">
+        <span class="hc-main">לבחירת מועד ביומן <span class="hc-chev" aria-hidden="true">‹</span></span>
+        <span class="hc-sub">שלוש שאלות קצרות · ללא עלות וללא התחייבות</span>
+      </a>
+    </div>
   </div>
 </main>
 
@@ -948,7 +962,6 @@
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-8h2.4l.4-2.6h-2.8V8.7c0-.75.25-1.26 1.33-1.26h1.42V5.11C15.99 5.08 15.15 5 14.17 5c-2.04 0-3.44 1.25-3.44 3.53v1.87H8.3V13h2.43v8z"/></svg>
     </a>
   </div>
-  נטע גוטמן · אדריכלית ומעצבת פנים<br>
   <a href="tel:0504322412">050-4322412</a> · <a href="mailto:innhome.g@gmail.com">innhome.g@gmail.com</a><br>
   קיבוץ חורשים
 </footer>
