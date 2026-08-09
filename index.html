@@ -16,11 +16,29 @@
 <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ivory:#f6f1ea; --paper:#fff; --card-bg:#faf8f5; --pearl:#fefdfb; --ink:#231f1c; --body:#4b443d; --muted:#6e6459;
-    --line:#e7dfd4; --soft:#efe7dc;
-    --accent:#a67f79; --accent-deep:#8a625c; --brass:#c2a16a;
-    --btn:#2b2825; --btn-hover:#1d1b19; --btn-ink:#faf8f5;
-    --dark:#211a18; --dark-2:#3a2c29; --dark-section:#241d1b;
+    /* ===== פלטה: שחור מבריק ולבן פנינה ===== */
+    --ink:#0d0c0b;          /* בסיס שחור — לא שחור טהור */
+    --ink-soft:#161412;     /* משטחים מוגבהים על שחור */
+    --ink-border:#2a2622;   /* מסגרות על שחור */
+    --pearl:#faf8f5;        /* בסיס פנינה */
+    --pearl-soft:#f2efe9;   /* משטח פנינה משני */
+    --gold:#c9a06b;
+    --text-on-dark:#f3f0ea; --text-on-light:#1a1815;
+    --sub-on-dark:#a89f93;  --sub-on-light:#6e675e;
+    /* גווני הביניים של תפרי המעבר — אפורים ניטרליים-חמים שנגזרים מהזוג */
+    /* תחנות הביניים של תפר פנינה→שחור. הן לא מרווחות לינארית אלא לפי עקומת
+     smoothstep, כדי שקצב ההתכהות יתחיל ויסתיים באפס. ככה אין קו התחלה
+     וקו סיום לתפר — רק מעבר. אפורים ניטרליים-חמים, בלי טיפת חום */
+  --blend-1:#edebe6; --blend-2:#d3d0ca; --blend-3:#86837d; --blend-4:#34322e; --blend-5:#1b1a17;
+
+    /* ===== כינויים לשמות הישנים =====
+       ממופים לפלטה החדשה כדי שמאות ההפניות הקיימות ימשיכו לעבוד,
+       במקום להחליף כל שימוש בנפרד ולהסתכן בהחמצה */
+    --paper:var(--pearl); --card-bg:var(--pearl); --ivory:var(--pearl-soft); --soft:var(--pearl-soft);
+    --line:#e4e0d8; --body:var(--text-on-light); --muted:var(--sub-on-light);
+    --accent:#a67f79; --accent-deep:#8a625c; --brass:var(--gold);
+    --btn:var(--ink); --btn-hover:#000; --btn-ink:var(--pearl);
+    --dark:var(--ink); --dark-2:#221f1b; --dark-section:var(--ink);
     /* אייקון וואטסאפ כמסכה, כדי שיירש את צבע הכפתור ולא יידרש נכס חיצוני */
     --wa-ico:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.44.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.47c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>');
     /* פונט אחיד לכל הדף — לפי שורת החתימה בפוטר "נטע גוטמן · אדריכלית ומעצבת פנים" */
@@ -34,7 +52,7 @@
   *{box-sizing:border-box;margin:0;padding:0}
   html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-  body{background:var(--pearl);color:var(--ink);font-family:var(--sans);
+  body{background:var(--pearl);color:var(--text-on-light);font-family:var(--sans);
     font-size:clamp(16px,1.9vw,17px);line-height:1.72;
     -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
   ::selection{background:var(--accent);color:#fff}
@@ -95,7 +113,7 @@
   h2{font-family:var(--serif);font-size:clamp(1.35rem,4.4vw,1.7rem);font-weight:700;
     margin-bottom:16px;letter-spacing:-.01em}
   .about .philosophy{font-family:var(--serif);font-weight:500;
-    font-size:clamp(1.15rem,4.6vw,1.42rem);line-height:1.62;text-align:center;color:var(--ink)}
+    font-size:clamp(1.15rem,4.6vw,1.42rem);line-height:1.62;text-align:center;color:var(--text-on-light)}
   .about .philosophy::before{content:"“";color:var(--brass);font-family:var(--serif)}
   .about .philosophy::after{content:"”";color:var(--brass);font-family:var(--serif)}
   .about hr{border:0;height:1px;background:var(--line);width:56px;margin:20px auto}
@@ -109,7 +127,7 @@
     background:var(--dark-section);
     margin-top:0;padding-top:clamp(48px,8vw,56px);overflow:hidden}
   .ba-head{max-width:680px;margin:0 auto;padding:0 22px}
-  .ba-block .eyebrow{color:#efe6dc;margin-top:0}
+  .ba-block .eyebrow{color:var(--text-on-dark);margin-top:0}
   .ba-block .eyebrow .rule{background:linear-gradient(90deg,rgba(239,230,220,.35),transparent)}
   .ba-block .ba-hint{color:rgba(239,230,220,.66)}
   /* קרוסלה: כל הפרויקטים באותה רצועה, מתחלפים בהצלבה */
@@ -121,7 +139,7 @@
 
   /* מעבר ידני בין הפרויקטים */
   .ba-nav{display:flex;align-items:center;justify-content:center;gap:10px;padding:18px 22px 2px}
-  .ba-arrow{background:none;border:0;padding:12px;cursor:pointer;color:#efe6dc;opacity:.5;
+  .ba-arrow{background:none;border:0;padding:12px;cursor:pointer;color:var(--text-on-dark);opacity:.5;
     line-height:0;transition:opacity .2s var(--ease),transform .2s var(--ease)}
   .ba-arrow svg{width:20px;height:20px;display:block}
   .ba-arrow svg path{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
@@ -165,7 +183,7 @@
     color:var(--brass);font-weight:600;margin-bottom:8px}
   .folio .fhead h2{color:#fbf7f1;margin:0}
   .cf-nav{display:flex;gap:8px;flex:0 0 auto;padding-bottom:6px}
-  .cf-arrow{background:none;border:0;padding:12px;cursor:pointer;color:#efe6dc;opacity:.45;line-height:0;
+  .cf-arrow{background:none;border:0;padding:12px;cursor:pointer;color:var(--text-on-dark);opacity:.45;line-height:0;
     transition:opacity .2s var(--ease),transform .2s var(--ease)}
   .cf-arrow svg{width:20px;height:20px;display:block}
   .cf-arrow svg path{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
@@ -188,13 +206,13 @@
     cursor:pointer;border:1px solid rgba(255,255,255,.06)}
   .cf-slide.dragging{transition:none}
   .cf-slide .ph-in{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-    background:repeating-linear-gradient(45deg,#463a36,#463a36 16px,#4d403b 16px,#4d403b 32px)}
+    background:repeating-linear-gradient(45deg,var(--ink-soft),var(--ink-soft) 16px,#1f1c19 16px,#1f1c19 32px)}
   .cf-slide picture{position:absolute;inset:0;display:block}
   .cf-slide img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
   /* carousel nav moved above the cards — see .cf-nav / .cf-arrow */
   .folio-cta{margin-top:28px;text-align:center;transition-delay:.15s}
   .ghost-cta{display:inline-flex;align-items:center;gap:9px;min-height:48px;padding:13px 32px;
-    border:1.5px solid rgba(240,232,220,.5);border-radius:40px;color:#f3ece0;background:transparent;
+    border:1.5px solid rgba(240,232,220,.5);border-radius:40px;color:var(--text-on-dark);background:transparent;
     font-weight:600;font-size:15px;letter-spacing:.5px;
     transition:background .2s var(--ease),border-color .2s var(--ease),transform .2s var(--ease)}
   .ghost-cta span{display:inline-block;transition:transform .2s var(--ease)}
@@ -218,7 +236,7 @@
   /* הסקשן עצמו לא זז בגלילה — אחרת נפער פס בהיר בתפר מול הפורטפוליו.
      הכותרת והכרטיסים מונפשים בנפרד */
   .tst.rev{opacity:1;transform:none;transition:none}
-  .tst .eyebrow{color:#efe6dc;margin:0 0 16px}
+  .tst .eyebrow{color:var(--text-on-dark);margin:0 0 16px}
   .tst .eyebrow .rule{background:linear-gradient(90deg,rgba(239,230,220,.35),transparent)}
   .tst-head{max-width:var(--maxw);margin:0 auto;padding:0 22px}
   .tst-head h2{margin-bottom:5px;color:#fbf7f1}
@@ -269,7 +287,7 @@
 
   /* ניווט */
   .tst-nav{display:flex;align-items:center;justify-content:center;gap:10px;padding:2px 22px 0}
-  .tst-arrow{background:none;border:0;padding:10px;cursor:pointer;color:#efe6dc;opacity:.5;
+  .tst-arrow{background:none;border:0;padding:10px;cursor:pointer;color:var(--text-on-dark);opacity:.5;
     line-height:0;transition:opacity .2s var(--ease),transform .2s var(--ease)}
   .tst-arrow svg{width:20px;height:20px;display:block}
   .tst-arrow svg path{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
@@ -302,7 +320,7 @@
   .tst-lb-body img{max-width:100%;max-height:calc(100dvh - clamp(32px,8vw,88px));
     width:auto;height:auto;border-radius:8px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
   .tst-lb-x{position:absolute;top:max(14px,env(safe-area-inset-top));left:16px;z-index:2;
-    width:42px;height:42px;border-radius:50%;cursor:pointer;color:#f3ece0;
+    width:42px;height:42px;border-radius:50%;cursor:pointer;color:var(--text-on-dark);
     background:rgba(250,248,245,.1);border:1px solid rgba(250,248,245,.28);
     display:flex;align-items:center;justify-content:center;
     transition:background .2s var(--ease)}
@@ -404,7 +422,7 @@
   .qbadge{width:58px;height:58px;border-radius:50%;background:#eef2ec;color:#5f7d63;
     display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:25px}
   .qbadge.warm{background:var(--soft);color:var(--accent-deep)}
-  .cal-embed{background:var(--ivory);border:1px dashed #d8ccbd;border-radius:16px;
+  .cal-embed{background:var(--ivory);border:1px dashed var(--line);border-radius:16px;
     padding:52px 20px;color:var(--muted);font-size:15px;margin-top:10px;text-align:center}
 
   /* הדף נסגר עכשיו בכרטיס הציטוט ולא בסקשן קביעת השיחה. הריפוד העליון של הפוטר
@@ -455,7 +473,7 @@
   /* z-index גבוה מהרקע (50): בלי זה הרקע מכסה את השדה כשהיומן פתוח,
      הלחיצה נבלעת בו ולא מגיעה לשדה — והמשתמש חווה שדה שלא מגיב */
   .bk-field{position:relative;z-index:52;width:100%;display:flex;align-items:center;gap:13px;min-height:62px;padding:0 20px;cursor:pointer;
-    background:var(--card-bg);border:1.5px solid var(--accent);border-radius:16px;color:var(--ink);font:inherit;text-align:right;
+    background:var(--card-bg);border:1.5px solid var(--accent);border-radius:16px;color:var(--text-on-light);font:inherit;text-align:right;
     box-shadow:0 6px 18px rgba(166,127,121,.12);
     transition:border-color .18s var(--ease),background .18s var(--ease),box-shadow .2s var(--ease),transform .18s var(--ease)}
   .bk-field:not(.touched):not(:hover):not(.chosen){animation:bkBreathe 2.5s ease-in-out infinite}
@@ -486,7 +504,7 @@
   .bk-pop[hidden]{display:none}
   @keyframes popIn{from{opacity:0;transform:scale(.96) translateY(-6px)}to{opacity:1;transform:none}}
   .bk-pop-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-  .bk-month{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--ink)}
+  .bk-month{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--text-on-light)}
   .bk-nav{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:var(--card-bg);color:var(--accent-deep);
     font-size:17px;cursor:pointer;transition:.15s}
   .bk-nav:hover:not(:disabled){background:var(--soft);border-color:var(--accent)}
@@ -495,9 +513,9 @@
   .bk-dow span{text-align:center;font-size:12px;font-weight:600;color:var(--muted);padding:4px 0}
   .bk-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
   .bk-cell{aspect-ratio:1;border:0;background:none;border-radius:11px;cursor:pointer;font:inherit;font-size:14.5px;
-    color:var(--ink);display:flex;align-items:center;justify-content:center;transition:.13s;position:relative}
+    color:var(--text-on-light);display:flex;align-items:center;justify-content:center;transition:.13s;position:relative}
   .bk-cell.empty{visibility:hidden;cursor:default}
-  .bk-cell.muted{color:#cabfae;cursor:not-allowed}
+  .bk-cell.muted{color:#5c554d;cursor:not-allowed}
   .bk-cell.avail{background:#e9efe6;color:#5b7a60;font-weight:700}
   .bk-cell.avail:hover{background:#dde7d9}
   /* יום עבודה שנתפס כולו. נבדל מ"לא זמין" בכוונה — שישי, חג או יום שעבר
@@ -509,16 +527,16 @@
   .bk-cell:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
   .bk-legend{display:flex;align-items:center;gap:7px;margin-top:12px;font-size:12px;color:var(--muted)}
   .bk-legend .dot{width:11px;height:11px;border-radius:4px;background:#e9efe6;border:1px solid #cadbc9}
-  .bk-grid.bk-skl .bk-cell{background:linear-gradient(90deg,#efe7dc,#f6f0e7,#efe7dc);background-size:200% 100%;
+  .bk-grid.bk-skl .bk-cell{background:linear-gradient(90deg,var(--ink-soft),#211d1a,var(--ink-soft));background-size:200% 100%;
     animation:shim 1.2s infinite;color:transparent;border-radius:11px;cursor:default}
   @keyframes shim{0%{background-position:200% 0}100%{background-position:-200% 0}}
   .bk-times-wrap{margin-top:16px;animation:slideDown .28s var(--ease)}
   .bk-times-wrap[hidden]{display:none}
   @keyframes slideDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
-  .bk-times-label{font-family:var(--serif);font-size:15px;font-weight:600;margin-bottom:10px;color:var(--ink)}
+  .bk-times-label{font-family:var(--serif);font-size:15px;font-weight:600;margin-bottom:10px;color:var(--text-on-light)}
   .bk-times{display:flex;flex-wrap:wrap;gap:9px}
   .bk-chip{min-height:44px;padding:10px 18px;border:1.5px solid var(--line);border-radius:30px;background:var(--ivory);
-    cursor:pointer;font:inherit;font-size:15px;font-weight:600;color:var(--ink);transition:.14s}
+    cursor:pointer;font:inherit;font-size:15px;font-weight:600;color:var(--text-on-light);transition:.14s}
   .bk-chip:hover{border-color:var(--accent)}
   .bk-chip.sel{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 4px 12px rgba(166,127,121,.32)}
   /* שעה תפוסה נשארת גלויה ומסומנת. מבקר שרואה ש-11:00 כבר נלקח מבין שהיומן חי. */
@@ -529,7 +547,7 @@
   .bk-chip-x{font-size:10.5px;font-weight:700;letter-spacing:.4px;opacity:.9}
   .bk-confirm{margin-top:16px;animation:slideDown .28s var(--ease)}
   .bk-confirm[hidden]{display:none}
-  .bk-summary{font-family:var(--serif);font-size:clamp(1.05rem,4.2vw,1.2rem);color:var(--ink);
+  .bk-summary{font-family:var(--serif);font-size:clamp(1.05rem,4.2vw,1.2rem);color:var(--text-on-light);
     padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid var(--line)}
   .bk-go{width:100%;min-height:54px;border:0;border-radius:40px;background:var(--btn);color:var(--btn-ink);font:inherit;
     font-size:16.5px;font-weight:600;cursor:pointer;box-shadow:0 8px 24px rgba(43,40,37,.25);transition:.2s var(--ease)}
@@ -543,7 +561,7 @@
   /* מצב "היומן לא זמין" — תופס את כל רוחב רשת הימים במקום ליפול לתא בודד */
   .bk-offline{grid-column:1/-1;display:flex;flex-direction:column;align-items:center;gap:7px;
     text-align:center;padding:26px 12px}
-  .bk-offline b{font-size:15.5px;color:var(--ink)}
+  .bk-offline b{font-size:15.5px;color:var(--text-on-light)}
   .bk-offline span{font-size:13.5px;color:var(--muted);line-height:1.65;max-width:32ch}
   .bk-wa{margin-top:5px;display:inline-flex;align-items:center;gap:8px;background:var(--btn);color:var(--btn-ink);
     font-weight:700;font-size:14px;padding:10px 20px;border-radius:30px;text-decoration:none;
@@ -559,19 +577,19 @@
     padding:13px 16px;background:var(--soft);border:1px solid var(--line);border-radius:14px}
   .bk-identity[hidden]{display:none}
   .bk-id-text{font-size:15px;color:var(--body)}
-  .bk-id-text b{color:var(--ink);font-weight:700}
+  .bk-id-text b{color:var(--text-on-light);font-weight:700}
   .bk-id-edit{background:none;border:0;padding:0;color:var(--accent-deep);font:inherit;font-size:13px;font-weight:600;
     cursor:pointer;text-decoration:underline;text-underline-offset:2px}
   .bk-form-sleeve{display:grid;grid-template-rows:0fr;transition:grid-template-rows .32s var(--ease)}
   .bk-form-sleeve.open{grid-template-rows:1fr}
   .bk-form-in{overflow:hidden;min-height:0}
-  .bk-form-title{font-family:var(--serif);font-size:1.06rem;font-weight:500;color:var(--ink);margin:2px 0 14px}
+  .bk-form-title{font-family:var(--serif);font-size:1.06rem;font-weight:500;color:var(--text-on-light);margin:2px 0 14px}
   .bkf{display:block;margin:0 0 12px}
   .bkf span{display:block;font-size:14px;font-weight:600;color:var(--body);margin:0 0 6px}
   .bkf span em{font-weight:400;font-style:normal;color:var(--muted)}
   .bkf input{display:block;box-sizing:border-box;width:100%;height:50px;margin:0;padding:0 15px;
     background:var(--soft);border:1.5px solid var(--line);border-radius:12px;-webkit-appearance:none;appearance:none;
-    font:inherit;font-size:16px;color:var(--ink);text-align:right;transition:border-color .18s var(--ease),background .18s var(--ease)}
+    font:inherit;font-size:16px;color:var(--text-on-light);text-align:right;transition:border-color .18s var(--ease),background .18s var(--ease)}
   .bkf input[type="tel"],.bkf input[type="email"]{text-align:left;direction:ltr}
   .bkf input:focus{outline:none;border-color:var(--accent);background:var(--pearl)}
   .bkf input::placeholder{color:var(--muted)}
@@ -589,7 +607,7 @@
   .bk-check svg path{stroke:#5b7a60;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round;
     stroke-dasharray:40;stroke-dashoffset:40;animation:draw .6s var(--ease) .1s forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
-  .bk-done h3{font-family:var(--serif);font-size:1.35rem;margin-bottom:8px;color:var(--ink)}
+  .bk-done h3{font-family:var(--serif);font-size:1.35rem;margin-bottom:8px;color:var(--text-on-light)}
   .bk-done-line{color:var(--accent-deep);font-weight:600;margin-bottom:6px}
   .bk-done-note{color:var(--muted);font-size:14.5px}
 
@@ -615,19 +633,18 @@
      הבהיר הקיים בלי למחוק אותו, ובלי לדלוף לשאר הדף.
      ============================================================ */
   .qualify-section{
-    --q-bg:#2b2521; --q-card:#37302a; --q-card-border:#4a4038; --q-gold:#c9a06b;
-    --q-ivory:#f5efe6; --q-text:#efe9df; --q-sub:#b8ada0;
+    --q-bg:var(--ink); --q-card:var(--ink-soft); --q-card-border:var(--ink-border); --q-gold:var(--gold);
+    --q-ivory:var(--text-on-dark); --q-text:var(--text-on-dark); --q-sub:var(--sub-on-dark);
   }
   /* פריסה במלוא הרוחב. הגיבור מעליה בהיר, ולכן התפר העליון מדורג */
   main > .qualify-section:first-child{
     position:relative;left:50%;right:50%;margin-inline:-50vw;width:100vw;max-width:none;
     margin-top:0;padding:0;
-    background:linear-gradient(180deg,var(--pearl) 0,var(--q-bg) 100px);
   }
   /* הריפוד העליון גדול מאורך ההדרגה בכוונה — אחרת תווית השלב הזהובה
      נוחתת על הגוון הבהיר של התפר והניגודיות שלה נשברת */
   .qualify-section .qualify{
-    max-width:720px;margin-inline:auto;padding:clamp(112px,13vw,150px) 20px clamp(64px,9vw,110px);
+    max-width:720px;margin-inline:auto;padding:clamp(152px,17vw,186px) 20px clamp(64px,9vw,110px);
     text-align:center;gap:0;
   }
   /* הכרטיס הבהיר מתבטל — השאלות יושבות ישירות על הרקע */
@@ -649,10 +666,10 @@
   .qualify-section .qpills{
     display:flex;flex-direction:row-reverse;justify-content:center;gap:10px;margin:0 0 44px}
   .qualify-section .qpills i{
-    width:22px;height:7px;border-radius:99px;background:#5a5148;
+    width:22px;height:7px;border-radius:99px;background:#332e29;
     transition:width .3s ease,background .3s ease}
   .qualify-section .qpills i.now{width:46px;background:var(--q-gold)}
-  .qualify-section .qpills i.done{background:#8a7355}
+  .qualify-section .qpills i.done{background:#8a6f45}
 
   /* --- שאלה --- */
   .qualify-section .q{border-top:0;padding:0 0 8px}
@@ -665,7 +682,7 @@
   /* שבב התשובה שנבחרה — גרסה כהה */
   .qualify-section .q-chosen{
     background:rgba(201,160,107,.12);border-color:rgba(201,160,107,.35);color:var(--q-gold)}
-  .qualify-section .q-chosen .ck{background:var(--q-gold);color:#2b2521}
+  .qualify-section .q-chosen .ck{background:var(--q-gold);color:var(--ink)}
 
   /* --- כרטיסי תשובה --- */
   .qualify-section .opts{
@@ -679,10 +696,10 @@
   .qualify-section .opt span::before{display:none}
   @media (hover:hover){
     .qualify-section .opt span:hover{
-      border-color:rgba(201,160,107,.55);background:#3d352e;transform:none}
+      border-color:rgba(201,160,107,.55);background:#201c19;transform:none}
   }
   .qualify-section .opt input:checked+span{
-    border-color:var(--q-gold);background:#3d352e;color:var(--q-text);box-shadow:none}
+    border-color:var(--q-gold);background:#201c19;color:var(--q-text);box-shadow:none}
   .qualify-section .opt input:focus-visible+span{outline:2px solid var(--q-gold);outline-offset:2px}
   .qualify-section .opt span:active{transform:none}
 
@@ -705,27 +722,27 @@
   .qualify-section .bk-cal-ico,.qualify-section .bk-chev{color:var(--q-gold)}
 
   .qualify-section .bk-pop{
-    background:#332c26;border:1px solid var(--q-card-border);border-radius:18px;padding:32px}
+    background:#141210;border:1px solid var(--q-card-border);border-radius:18px;padding:32px}
   .qualify-section .bk-month{color:var(--q-ivory);font-weight:600}
   .qualify-section .bk-nav{background:var(--q-card);border-color:var(--q-card-border);color:var(--q-ivory)}
-  .qualify-section .bk-nav:disabled{color:#6b6156}
-  .qualify-section .bk-dow span{color:#8a8075;font-size:14px}
-  .qualify-section .bk-cell{color:#6b6156;background:none;aspect-ratio:1;height:auto}
+  .qualify-section .bk-nav:disabled{color:#5c554d}
+  .qualify-section .bk-dow span{color:var(--sub-on-dark);font-size:14px}
+  .qualify-section .bk-cell{color:#5c554d;background:none;aspect-ratio:1;height:auto}
   .qualify-section .bk-cell.avail{
-    background:#3f372f;border-radius:12px;color:var(--q-ivory);font-weight:600}
-  .qualify-section .bk-cell.avail:hover{background:#4a4038}
-  .qualify-section .bk-cell.sel{border:1px solid var(--q-gold);background:#3f372f!important;color:var(--q-ivory)!important}
+    background:#1d1a17;border-radius:12px;color:var(--q-ivory);font-weight:600}
+  .qualify-section .bk-cell.avail:hover{background:#262220}
+  .qualify-section .bk-cell.sel{border:1px solid var(--q-gold);background:#1d1a17!important;color:var(--q-ivory)!important}
   .qualify-section .bk-cell.full{background:rgba(176,82,75,.16);color:#c98d86}
   .qualify-section .bk-cell.today{box-shadow:inset 0 0 0 1.5px rgba(201,160,107,.5)}
   .qualify-section .bk-legend{color:var(--q-gold);font-size:14px}
-  .qualify-section .bk-legend .dot{background:#3f372f;border-color:var(--q-card-border)}
+  .qualify-section .bk-legend .dot{background:#1d1a17;border-color:var(--q-card-border)}
 
   .qualify-section .bk-times-label{color:var(--q-sub)}
   .qualify-section .bk-chip{
     background:var(--q-card);border:1px solid var(--q-card-border);border-radius:12px;
     padding:14px 22px;color:var(--q-text);font-weight:600}
-  .qualify-section .bk-chip:hover{border-color:rgba(201,160,107,.55);background:#3d352e}
-  .qualify-section .bk-chip.sel{background:#3d352e;border-color:var(--q-gold);color:var(--q-ivory);box-shadow:none}
+  .qualify-section .bk-chip:hover{border-color:rgba(201,160,107,.55);background:#201c19}
+  .qualify-section .bk-chip.sel{background:#201c19;border-color:var(--q-gold);color:var(--q-ivory);box-shadow:none}
   .qualify-section .bk-chip.taken{background:rgba(176,82,75,.14);border-color:rgba(176,82,75,.3);color:#c98d86}
 
   .qualify-section .bk-summary{color:var(--q-ivory)}
@@ -734,7 +751,7 @@
   .qualify-section .bkf input{
     background:var(--q-card);border:1px solid var(--q-card-border);border-radius:12px;
     color:var(--q-ivory);padding:16px 20px}
-  .qualify-section .bkf input::placeholder{color:#8a8075}
+  .qualify-section .bkf input::placeholder{color:var(--sub-on-dark)}
   .qualify-section .bkf input:focus{border-color:var(--q-gold);box-shadow:none;outline:none}
   .qualify-section .bk-identity{background:var(--q-card);border-color:var(--q-card-border);color:var(--q-sub)}
   .qualify-section .bk-id-text b{color:var(--q-ivory)}
@@ -744,17 +761,99 @@
 
   /* כפתורי הפעולה — זהב על כהה במקום פחם על בהיר */
   .qualify-section .qcta,.qualify-section .bk-go{
-    background:var(--q-gold);color:#2b2521;box-shadow:none}
+    background:var(--q-gold);color:var(--ink);box-shadow:none}
   .qualify-section .qcta:not(:disabled):hover,.qualify-section .bk-go:not(:disabled):hover{
     background:#d8b17c;box-shadow:none}
   .qualify-section .qcta:disabled,.qualify-section .bk-go:disabled{
-    background:#4a4038;color:#8a8075}
+    background:#262220;color:var(--sub-on-dark)}
 
   @media (max-width:400px){
     .qualify-section .opt span{padding:20px 20px;font-size:16px}
     .qualify-section .bk-pop{padding:20px 16px}
     .qualify-section .qualify{padding-inline:20px}
   }
+
+  /* ============================================================
+     ברק — שחור שטוח נראה זול. מקור אור רך מלמעלה נותן עומק לכה
+     בלי ברק מתכתי, ולכן העוצמה נמוכה בכוונה (4.5% בלבד).
+     ה-::before מכסה את הסקשן, לא לוכד לחיצות, ויושב מתחת לתוכן.
+     ============================================================ */
+  .ba-block,.folio{position:relative}
+  .ba-block::before,.folio::before{
+    content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(120% 60% at 50% 0%,rgba(255,255,255,.045) 0%,transparent 60%)}
+  .ba-block > *,.folio > *{position:relative;z-index:1}
+
+  /* קצה עליון מואר לכרטיסים על שחור — תחושת לכה. שאר המסגרת נשארת כהה */
+  .qualify-section .opt span,.qualify-section .bk-chip,.qualify-section .bkf input,
+  .qualify-section .bk-field,.qualify-section .bk-pop,.tst-shot{
+    border-top-color:rgba(255,255,255,.07)}
+
+  /* צילומי המלצות על רקע שחור — בלי מסגרת הם מרחפים */
+  .tst-shot img{border:1px solid var(--ink-border);border-radius:8px;display:block}
+
+  /* ============================================================
+     תפרי המעבר. נקודות הקצה זהות בדיוק לרקעי הסקציות הסמוכות,
+     והביניים אפורים ניטרליים-חמים — בלי חומים ובלי אפור מלוכלך
+     ============================================================ */
+  /* רצועת התפר קבועה בפיקסלים ולא באחוזים. באחוזים היא נמתחה לפי גובה
+     הסקשן ונראתה כמריחה; ב-140px היא זהה בכל המעברים ובכל רוחב מסך.
+
+     חמש עשרה תחנות ולא חמש. CSS מיישר בקו ישר בין תחנות, וכשהיו מעט
+     תחנות המדרון קפץ פי 2.7 בתחנה הראשונה — והעין רואה קפיצת מדרון
+     כקו (Mach band). התחנות מחושבות על עקומת smootherstep, שהנגזרת
+     שלה אפס בשני הקצוות, ולכן אין לתפר קו התחלה ואין לו קו סיום.
+     הערכים קשיחים ולא טוקנים כי הם תוצר חישוב, לא בחירת מותג */
+
+  /* נקודת ההתחלה כאן היא הגוון הרך ולא הפנינה הבהירה: הגיבור נצבע
+     ב-‎.hero::before‎ ב-‎--pearl-soft‎, ותפר שיתחיל בהיר ממנו יצייר פס לבן
+     בדיוק על קו המגע. שאר התפרים יושבים על רקע ה-‎body‎ ולכן פותחים בפנינה */
+  main > .qualify-section:first-child{
+    background-color:var(--ink);
+    background-image:linear-gradient(to bottom,
+      #f2efe9 0px, #f1eee8 10px, #edeae4 20px, #e2dfda 30px, #d1cec9 40px,
+      #bab7b2 50px, #9e9b97 60px, #807e7a 70px, #61605d 80px, #454442 90px,
+      #2e2d2b 100px, #1d1c1a 110px, #121110 120px, #0e0d0c 130px, var(--ink) 140px)}
+  /* הריפוד התחתון גדל ל-150px ומעלה: רצועת התפר היא 140px, וכשהריפוד היה
+     34px היא נכנסה אל מתחת לכרטיסי ההמלצות. הכרטיס כהה ואטום, ולכן הוא
+     הסתיר את ההדרגה ונוצר קפיצת קצה חדה בדיוק בשוליו במקום מעבר */
+  .tst{
+    padding-bottom:clamp(152px,18vw,180px);
+    background-color:var(--ink);
+    background-image:
+      linear-gradient(to top,
+        #faf8f5 0px, #f9f7f4 10px, #f4f3f0 20px, #eae8e5 30px, #d8d6d3 40px,
+        #c0bebb 50px, #a3a19f 60px, #848280 70px, #646361 80px, #474645 90px,
+        #2f2e2d 100px, #1d1c1b 110px, #131110 120px, #0e0d0c 130px, var(--ink) 140px),
+      radial-gradient(120% 78% at 50% 52%, rgba(255,255,255,.035), rgba(13,12,11,0) 68%)}
+  /* הפוטר כהה — נדרש תפר שלישי מהאזור הבהיר שמעליו. הריפוד העליון גדול
+     מהרצועה בכוונה, אחרת שם המותג נוחת על אמצע ההדרגה ומאבד ניגודיות */
+  /* ‎footer‎ נושא ‎class="wrap"‎ ולכן היה מוגבל ל-‎--maxw‎. כל עוד הרקע שלו היה
+     שקוף זה לא הפריע, אבל עכשיו הוא כהה — בלי מלוא הרוחב נשארים שני פסי
+     פנינה בצדדים. הפוטר הוא ילד ישיר של ‎body‎, ולכן די לבטל את ההגבלה;
+     אסור לפרוס אותו בטריק ‎left:50%/-50vw‎ כמו הסקציות שבתוך ה-‎wrap‎ —
+     שם הוא יוצר גלישה אופקית שמזיזה את כל הדף ב-RTL. הטקסט ממורכז ממילא.
+     הבורר הוא ‎footer.wrap‎ ולא ‎footer‎: ‎.wrap‎ היא מחלקה וגוברת על בורר תג
+     בכל מקרה, ולכן ‎max-width‎ ו-‎padding‎ פשוט נבלעו */
+  footer.wrap{max-width:none;margin-inline:0;width:auto;padding-inline:22px;
+    background-color:var(--ink);
+    background-image:linear-gradient(to bottom,
+      #faf8f5 0px, #f9f7f4 10px, #f4f3f0 20px, #eae8e5 30px, #d8d6d3 40px,
+      #c0bebb 50px, #a3a19f 60px, #848280 70px, #646361 80px, #474645 90px,
+      #2f2e2d 100px, #1d1c1b 110px, #131110 120px, #0e0d0c 130px, var(--ink) 140px);
+    padding-top:clamp(158px,20vw,190px);
+    color:var(--sub-on-dark)}
+  footer .fbrand{color:var(--gold)}
+  .ftag{color:var(--text-on-dark)}
+  footer a{color:var(--text-on-dark)}
+  /* העיגולים ירשו ‎background:var(--card-bg)‎ — כלומר פנינה. על פוטר שחור
+     הם נראו כשני דיסקים לבנים זוהרים, ולכן גם הרקע והצל מוחלפים */
+  .social a{background:var(--ink-soft);border-color:var(--ink-border);
+    color:var(--sub-on-dark);box-shadow:none}
+  .social a:hover{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+  /* כפתור הסגירה יושב עכשיו על תפר מתכהה — הפוך לפנינה על שחור */
+  .closing-cta .hero-cta{background:var(--gold);color:var(--ink)}
+  .closing-cta .hero-cta:hover{background:#d8b17c}
 </style>
 </head>
 <body>
