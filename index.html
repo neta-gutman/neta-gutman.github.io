@@ -103,8 +103,12 @@
 
   /* before / after (original drag logic preserved) */
   .ba-hint{text-align:center;color:var(--muted);font-size:14px;margin:-6px 0 6px}
+  /* תפר הכניסה לאזור הכהה. במקום קו חד בין שנהב לכהה — הדרגה של 130px
+     שמתחילה בדיוק בצבע רקע הדף ומתכהה. אחרי נקודת העצירה הצבע נשאר כהה,
+     ולכן אין צורך בשכבה נוספת */
   .ba-block{position:relative;left:50%;right:50%;margin-inline:-50vw;width:100vw;
-    background:var(--dark-section);margin-top:64px;padding-top:clamp(48px,8vw,56px);overflow:hidden}
+    background:linear-gradient(180deg,var(--pearl) 0,var(--dark-section) 130px);
+    margin-top:64px;padding-top:clamp(48px,8vw,56px);overflow:hidden}
   .ba-head{max-width:680px;margin:0 auto;padding:0 22px}
   .ba-block .eyebrow{color:#efe6dc;margin-top:0}
   .ba-block .eyebrow .rule{background:linear-gradient(90deg,rgba(239,230,220,.35),transparent)}
@@ -205,8 +209,11 @@
   .tst{position:relative;left:50%;right:50%;margin-inline:-50vw;width:100vw;
     padding:clamp(38px,6.5vw,56px) 0 clamp(24px,3.5vw,34px);overflow:hidden;
     background-color:var(--dark-section);
-    /* וינייטה עדינה: מרכז מעט חם יותר, פינות עמוקות — עומק בלי כובד */
+    /* השכבה הראשונה היא תפר היציאה חזרה לאור — הדרגה מלמטה למעלה שמסתיימת
+       בדיוק בצבע רקע הדף. חייבת להיות ראשונה כדי לשבת מעל הוינייטה.
+       אחריה: וינייטה עדינה — מרכז מעט חם יותר, פינות עמוקות */
     background-image:
+      linear-gradient(0deg, var(--pearl) 0, rgba(254,253,251,0) 130px),
       radial-gradient(120% 78% at 50% 52%, rgba(58,44,41,.5), rgba(36,29,27,0) 68%),
       radial-gradient(95% 58% at 50% 118%, rgba(0,0,0,.3), rgba(0,0,0,0) 72%)}
   /* הסקשן עצמו לא זז בגלילה — אחרת נפער פס בהיר בתפר מול הפורטפוליו.
