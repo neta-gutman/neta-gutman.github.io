@@ -73,9 +73,10 @@
 
   /* hero */
   .hero{text-align:center;padding:clamp(40px,10vw,72px) 0 26px;position:relative}
+  /* צבע מלא שנעצר בדיוק בגובה הגיבור. קודם הוא גלש 150px מטה בדעיכה,
+     וזה בדיוק הערפול שהוסר — הגיבור חייב להיפגש עם השחור בקו נקי */
   .hero::before{content:"";position:absolute;z-index:-1;top:0;left:50%;transform:translateX(-50%);
-    width:100vw;height:calc(100% + 150px);
-    background:linear-gradient(180deg,var(--ivory) 0,var(--ivory) calc(100% - 150px),rgba(246,241,234,0) 100%)}
+    width:100vw;height:100%;background:var(--pearl-soft)}
   .hero .halo{position:absolute;top:-6%;left:50%;transform:translateX(-50%);
     width:min(520px,90%);height:340px;pointer-events:none;z-index:0;
     background:radial-gradient(ellipse at center,rgba(166,127,121,.16),transparent 66%);filter:blur(6px)}
@@ -225,14 +226,7 @@
   /* ===== המלצות — רצועה כהה, ממשיכה ישירות את הפורטפוליו שמעליה ===== */
   .tst{position:relative;left:50%;right:50%;margin-inline:-50vw;width:100vw;
     padding:clamp(38px,6.5vw,56px) 0 clamp(24px,3.5vw,34px);overflow:hidden;
-    background-color:var(--dark-section);
-    /* השכבה הראשונה היא תפר היציאה חזרה לאור — הדרגה מלמטה למעלה שמסתיימת
-       בדיוק בצבע רקע הדף. חייבת להיות ראשונה כדי לשבת מעל הוינייטה.
-       אחריה: וינייטה עדינה — מרכז מעט חם יותר, פינות עמוקות */
-    background-image:
-      linear-gradient(0deg, var(--pearl) 0, rgba(254,253,251,0) 130px),
-      radial-gradient(120% 78% at 50% 52%, rgba(58,44,41,.5), rgba(36,29,27,0) 68%),
-      radial-gradient(95% 58% at 50% 118%, rgba(0,0,0,.3), rgba(0,0,0,0) 72%)}
+    background-color:var(--dark-section)}
   /* הסקשן עצמו לא זז בגלילה — אחרת נפער פס בהיר בתפר מול הפורטפוליו.
      הכותרת והכרטיסים מונפשים בנפרד */
   .tst.rev{opacity:1;transform:none;transition:none}
@@ -351,7 +345,6 @@
   .qbar i{display:block;height:100%;width:0;border-radius:4px;
     background:linear-gradient(90deg,var(--accent),var(--brass));transition:width .5s var(--ease)}
   .qcount{font-size:12.5px;color:var(--muted);letter-spacing:.5px;margin-bottom:18px;font-weight:600}
-  .qlead{color:var(--muted);font-size:15px;margin:-2px 0 18px}
 
   /* wizard reveal wrapper — CLS-free grid-rows */
   .qw{display:grid;grid-template-rows:0fr;opacity:0;transform:translateY(-8px);
@@ -641,10 +634,10 @@
     position:relative;left:50%;right:50%;margin-inline:-50vw;width:100vw;max-width:none;
     margin-top:0;padding:0;
   }
-  /* הריפוד העליון גדול מאורך ההדרגה בכוונה — אחרת תווית השלב הזהובה
-     נוחתת על הגוון הבהיר של התפר והניגודיות שלה נשברת */
+  /* הריפוד העליון קטן בכוונה: חצי כרטיס החפיפה שמעל כבר יוצר את המרווח
+     מקו התפר אל תווית השלב, ואין צורך להוסיף עליו */
   .qualify-section .qualify{
-    max-width:720px;margin-inline:auto;padding:clamp(152px,17vw,186px) 20px clamp(64px,9vw,110px);
+    max-width:720px;margin-inline:auto;padding:var(--oc-half) 20px clamp(64px,9vw,110px);
     text-align:center;gap:0;
   }
   /* הכרטיס הבהיר מתבטל — השאלות יושבות ישירות על הרקע */
@@ -656,11 +649,6 @@
   .qualify-section .qcount{
     color:var(--q-gold);font-size:13px;letter-spacing:.35em;font-weight:500;
     font-family:var(--sans);margin:0 0 18px}
-  .qualify-section #q-screen > h2{
-    font-family:var(--serif);color:var(--q-ivory);font-size:clamp(30px,4.5vw,44px);
-    font-weight:500;line-height:1.3;margin:0 0 16px}
-  .qualify-section .qlead{
-    color:var(--q-sub);font-size:16px;font-family:var(--sans);font-weight:400;margin:0 0 36px}
 
   /* --- מחוון ההתקדמות --- */
   .qualify-section .qpills{
@@ -773,17 +761,6 @@
     .qualify-section .qualify{padding-inline:20px}
   }
 
-  /* ============================================================
-     ברק — שחור שטוח נראה זול. מקור אור רך מלמעלה נותן עומק לכה
-     בלי ברק מתכתי, ולכן העוצמה נמוכה בכוונה (4.5% בלבד).
-     ה-::before מכסה את הסקשן, לא לוכד לחיצות, ויושב מתחת לתוכן.
-     ============================================================ */
-  .ba-block,.folio{position:relative}
-  .ba-block::before,.folio::before{
-    content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
-    background:radial-gradient(120% 60% at 50% 0%,rgba(255,255,255,.045) 0%,transparent 60%)}
-  .ba-block > *,.folio > *{position:relative;z-index:1}
-
   /* קצה עליון מואר לכרטיסים על שחור — תחושת לכה. שאר המסגרת נשארת כהה */
   .qualify-section .opt span,.qualify-section .bk-chip,.qualify-section .bkf input,
   .qualify-section .bk-field,.qualify-section .bk-pop,.tst-shot{
@@ -793,41 +770,38 @@
   .tst-shot img{border:1px solid var(--ink-border);border-radius:8px;display:block}
 
   /* ============================================================
-     תפרי המעבר. נקודות הקצה זהות בדיוק לרקעי הסקציות הסמוכות,
-     והביניים אפורים ניטרליים-חמים — בלי חומים ובלי אפור מלוכלך
+     תפרים. אין הדרגות — אזור בהיר ואזור כהה נוגעים ישירות, והמגע
+     מסומן בקו זהב של פיקסל אחד ובמעוין זהב במרכזו. הניגוד חד בכוונה.
+     שני צדי כל תפר מקבלים ריפוד נדיב, אחרת הקו נראה כתקלה ולא כהחלטה.
      ============================================================ */
-  /* רצועת התפר קבועה בפיקסלים ולא באחוזים. באחוזים היא נמתחה לפי גובה
-     הסקשן ונראתה כמריחה; ב-140px היא זהה בכל המעברים ובכל רוחב מסך.
+  :root{--seam-pad:clamp(80px,10vw,140px); --seam-line:rgba(201,160,107,.35)}
 
-     חמש עשרה תחנות ולא חמש. CSS מיישר בקו ישר בין תחנות, וכשהיו מעט
-     תחנות המדרון קפץ פי 2.7 בתחנה הראשונה — והעין רואה קפיצת מדרון
-     כקו (Mach band). התחנות מחושבות על עקומת smootherstep, שהנגזרת
-     שלה אפס בשני הקצוות, ולכן אין לתפר קו התחלה ואין לו קו סיום.
-     הערכים קשיחים ולא טוקנים כי הם תוצר חישוב, לא בחירת מותג */
+  .seam-mark{position:absolute;top:-7px;right:50%;transform:translateX(50%) rotate(45deg);
+    width:12px;height:12px;background:var(--gold);pointer-events:none;z-index:3}
 
-  /* נקודת ההתחלה כאן היא הגוון הרך ולא הפנינה הבהירה: הגיבור נצבע
-     ב-‎.hero::before‎ ב-‎--pearl-soft‎, ותפר שיתחיל בהיר ממנו יצייר פס לבן
-     בדיוק על קו המגע. שאר התפרים יושבים על רקע ה-‎body‎ ולכן פותחים בפנינה */
+  /* ‖ תפר 1 — הגיבור אל השאלון. כאן יושב כרטיס החפיפה, ולכן אין מעוין:
+     הכרטיס עצמו הוא הסימן במרכז הקו.
+
+     ‎--oc-half‎ הוא המרווח ששני צדי התפר מפנים לכרטיס. נמדד: גובה הכרטיס
+     הוא 214-218 בכל הרוחבים (360, 768, 1440), כלומר חצי גובה ≈109. הערך
+     כאן גדול ממנו בכ-60, וזה המרווח הנשימתי שנשאר בפועל בין הכרטיס לבין
+     הכותרת מעליו ותווית השלב מתחתיו */
+  :root{--oc-half:clamp(168px,15vw,190px)}
+  .hero{padding-bottom:var(--oc-half)}
   main > .qualify-section:first-child{
-    background-color:var(--ink);
-    background-image:linear-gradient(to bottom,
-      #f2efe9 0px, #f1eee8 10px, #edeae4 20px, #e2dfda 30px, #d1cec9 40px,
-      #bab7b2 50px, #9e9b97 60px, #807e7a 70px, #61605d 80px, #454442 90px,
-      #2e2d2b 100px, #1d1c1a 110px, #121110 120px, #0e0d0c 130px, var(--ink) 140px)}
-  /* הריפוד התחתון גדל ל-150px ומעלה: רצועת התפר היא 140px, וכשהריפוד היה
-     34px היא נכנסה אל מתחת לכרטיסי ההמלצות. הכרטיס כהה ואטום, ולכן הוא
-     הסתיר את ההדרגה ונוצר קפיצת קצה חדה בדיוק בשוליו במקום מעבר */
-  .tst{
-    padding-bottom:clamp(152px,18vw,180px);
-    background-color:var(--ink);
-    background-image:
-      linear-gradient(to top,
-        #faf8f5 0px, #f9f7f4 10px, #f4f3f0 20px, #eae8e5 30px, #d8d6d3 40px,
-        #c0bebb 50px, #a3a19f 60px, #848280 70px, #646361 80px, #474645 90px,
-        #2f2e2d 100px, #1d1c1b 110px, #131110 120px, #0e0d0c 130px, var(--ink) 140px),
-      radial-gradient(120% 78% at 50% 52%, rgba(255,255,255,.035), rgba(13,12,11,0) 68%)}
-  /* הפוטר כהה — נדרש תפר שלישי מהאזור הבהיר שמעליו. הריפוד העליון גדול
-     מהרצועה בכוונה, אחרת שם המותג נוחת על אמצע ההדרגה ומאבד ניגודיות */
+    position:relative;background:var(--ink);
+    border-top:1px solid var(--seam-line)}
+
+  /* ‖ תפר 2 — ההמלצות אל האזור הבהיר. ל-‎.tst‎ יש ‎overflow:hidden‎, ולכן
+     מעוין ממוקם בתוכה היה נחתך. הקו עצמו הוא ‎border-bottom‎ שלה (גבול
+     אינו נחתך), והמעוין תלוי על עוגן בגובה אפס מיד אחריה */
+  .tst{padding-bottom:var(--seam-pad);background:var(--ink);
+    border-bottom:1px solid var(--seam-line)}
+  .seam-anchor{position:relative;height:0}
+  .light-after-dark{padding-top:var(--seam-pad)}
+
+  /* ‖ תפר 3 — סגירת הדף אל הפוטר */
+  .closing-cta{margin-bottom:var(--seam-pad)}
   /* ‎footer‎ נושא ‎class="wrap"‎ ולכן היה מוגבל ל-‎--maxw‎. כל עוד הרקע שלו היה
      שקוף זה לא הפריע, אבל עכשיו הוא כהה — בלי מלוא הרוחב נשארים שני פסי
      פנינה בצדדים. הפוטר הוא ילד ישיר של ‎body‎, ולכן די לבטל את ההגבלה;
@@ -835,14 +809,29 @@
      שם הוא יוצר גלישה אופקית שמזיזה את כל הדף ב-RTL. הטקסט ממורכז ממילא.
      הבורר הוא ‎footer.wrap‎ ולא ‎footer‎: ‎.wrap‎ היא מחלקה וגוברת על בורר תג
      בכל מקרה, ולכן ‎max-width‎ ו-‎padding‎ פשוט נבלעו */
-  footer.wrap{max-width:none;margin-inline:0;width:auto;padding-inline:22px;
-    background-color:var(--ink);
-    background-image:linear-gradient(to bottom,
-      #faf8f5 0px, #f9f7f4 10px, #f4f3f0 20px, #eae8e5 30px, #d8d6d3 40px,
-      #c0bebb 50px, #a3a19f 60px, #848280 70px, #646361 80px, #474645 90px,
-      #2f2e2d 100px, #1d1c1b 110px, #131110 120px, #0e0d0c 130px, var(--ink) 140px);
-    padding-top:clamp(158px,20vw,190px);
+  footer.wrap{position:relative;max-width:none;margin-inline:0;width:auto;
+    padding-inline:22px;padding-top:var(--seam-pad);
+    background:var(--ink);border-top:1px solid var(--seam-line);
     color:var(--sub-on-dark)}
+
+  /* ============================================================
+     כרטיס החפיפה — פעם אחת בדף, על תפר 1.
+     ‎translateY(-50%)‎ ולא מרווח שלילי קבוע: הכרטיס גבוה יותר במסך צר,
+     ומרווח קבוע היה מוציא אותו מהמרכז בדיוק שם. חצי גובה תמיד חצי גובה.
+     ============================================================ */
+  .overlap-anchor{position:relative;height:0}
+  .overlap-card{position:absolute;top:0;right:50%;z-index:2;
+    transform:translate(50%,-50%);width:min(640px,calc(100vw - 44px));
+    padding:40px 48px;text-align:center;box-sizing:border-box;
+    background:var(--ink-soft);border:1px solid var(--ink-border);
+    border-top:1px solid rgba(201,160,107,.5);border-radius:16px}
+  .oc-lab{display:flex;align-items:center;justify-content:center;gap:10px;
+    color:var(--gold);font-size:12.5px;letter-spacing:2px;font-weight:600;margin-bottom:14px}
+  .oc-lab::before{content:"";width:7px;height:7px;background:var(--gold);transform:rotate(45deg)}
+  .overlap-card h2{font-family:var(--serif);color:var(--text-on-dark);
+    font-size:clamp(23px,4.4vw,30px);line-height:1.3;margin:0 0 10px;font-weight:600}
+  .overlap-card p{margin:0;color:var(--sub-on-dark);font-size:15px;line-height:1.7}
+  @media (max-width:600px){.overlap-card{padding:30px 22px}}
   footer .fbrand{color:var(--gold)}
   .ftag{color:var(--text-on-dark)}
   footer a{color:var(--text-on-dark)}
@@ -885,13 +874,21 @@
 
 <main>
   <section class="qualify-section rev" aria-label="קביעת שיחה">
+    <!-- כרטיס החפיפה יושב על קו המגע בין הגיבור לאזור הכהה. הוא מחזיק את
+         פתיח השאלון — התווית, הכותרת וההבטחה — שהיו קודם בתוך הטופס.
+         לא הועתקו, הועברו: אין כפילות -->
+    <div class="overlap-anchor">
+      <div class="overlap-card">
+        <div class="oc-lab">קביעת שיחה</div>
+        <h2>כמה שאלות קצרות ונקבע</h2>
+        <p>פחות מדקה — ובסוף נקבע שיחת היכרות, ללא עלות וללא התחייבות. ככה אני מגיעה לשיחה כשאני כבר מבינה את הפרויקט שלכם.</p>
+      </div>
+    </div>
     <div class="qualify">
       <section class="card book" id="book" aria-label="שאלון וקביעת שיחה">
       <div id="q-screen">
         <div class="qcount" id="qCount" dir="rtl">שלב 1 מתוך 3</div>
         <div class="qpills" id="qPills" aria-hidden="true"><i></i><i></i><i></i></div>
-        <h2>כמה שאלות קצרות ונקבע</h2>
-        <p class="qlead">פחות מדקה — ובסוף נקבע שיחת היכרות, ללא עלות וללא התחייבות. ככה אני מגיעה לשיחה כשאני כבר מבינה את הפרויקט שלכם.</p>
 
         <div class="qw open" data-step="0">
           <div class="qw-in">
@@ -1182,12 +1179,15 @@
       </div>
     </section>
 
+    <!-- עוגן בגובה אפס. המעוין חייב הורה שאינו חותך, ו-‎.tst‎ היא overflow:hidden -->
+    <div class="seam-anchor" aria-hidden="true"><span class="seam-mark"></span></div>
+
     <div class="tst-lb" id="tstLb" hidden role="dialog" aria-modal="true" aria-label="תצוגה מוגדלת">
       <button class="tst-lb-x" id="tstLbX" type="button" aria-label="סגירה"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
       <div class="tst-lb-body" id="tstLbBody"></div>
     </div>
 
-    <div class="eyebrow eyebrow-tight rev"><span class="lab">הגישה שלי</span><span class="rule"></span></div>
+    <div class="eyebrow eyebrow-tight rev light-after-dark"><span class="lab">הגישה שלי</span><span class="rule"></span></div>
     <section class="card quote-card rev" aria-label="הגישה של נטע">
       <p>בכל בית אותו אני מתכננת אני קודם כל רואה אתכם, את האנשים שיחיו בו, את מי שאתם, את מה שחשוב לכם, ואת מה שעושה לכם הכי טוב. יחד נבנה חלום שמותאם בדיוק אליכם. אני כאן כדי לוודא שהבית יהפוך למקום שמרחיב לכם את הלב כל יום מחדש</p>
     </section>
@@ -1204,6 +1204,7 @@
 </main>
 
 <footer class="wrap rev">
+  <span class="seam-mark" aria-hidden="true"></span>
   <div class="fbrand">נטע גוטמן אדריכלים</div>
   <div class="ftag">כאן הופכים חלומות למציאות</div>
   <div class="social">
