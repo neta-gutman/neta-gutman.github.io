@@ -20,8 +20,12 @@
     --ink:#0d0c0b;          /* בסיס שחור — לא שחור טהור */
     --ink-soft:#161412;     /* משטחים מוגבהים על שחור */
     --ink-border:#2a2622;   /* מסגרות על שחור */
-    --pearl:#faf8f5;        /* בסיס פנינה */
-    --pearl-soft:#f2efe9;   /* משטח פנינה משני */
+    /* הגוון החם של הגיבור הורחב לכל הדף לבקשת נטע. קודם הגיבור היה
+       \u200E#f2efe9\u200E ושאר הדף \u200E#faf8f5\u200E — הבדל קטן שיצר קו מגע מיותר בין
+       הגיבור לסקשן שאחריו. עכשיו זה גוון אחד, והכרטיסים הלבנים
+       שעליו הם אלה שיוצרים את ההפרדה */
+    --pearl:#f2efe9;        /* בסיס פנינה חמה — רקע כל הדף */
+    --pearl-soft:#f2efe9;   /* זהה כרגע. נשמר כטוקן נפרד למקרה שיופרדו שוב */
     --gold:#c9a06b;
     --text-on-dark:#f3f0ea; --text-on-light:#1a1815;
     --sub-on-dark:#a89f93;  --sub-on-light:#6e675e;
@@ -823,6 +827,12 @@
   .ba{background:repeating-linear-gradient(45deg,#efece6,#efece6 16px,#e6e2db 16px,#e6e2db 32px)}
   .cf::before{background:linear-gradient(90deg,var(--pearl),transparent)}
   .cf::after{background:linear-gradient(270deg,var(--pearl),transparent)}
+  /* הכרטיס והפלייסהולדר שלו כוילו לרקע שחור: מסגרת לבנה בשקיפות,
+     צל בעוצמת 50% וריבוע חום כהה עד שהתמונה נטענת. על בז' זה נראה
+     כמו תקלה, ולכן שלושתם מוחלפים */
+  .cf-slide{background:#e4e0d9;border:1px solid var(--line);
+    box-shadow:0 24px 48px rgba(43,40,37,.16)}
+  .cf-slide .ph-in{background:repeating-linear-gradient(45deg,#e9e5de,#e9e5de 16px,#dfdbd3 16px,#dfdbd3 32px)}
   /* הכרטיסים היו משטח כהה מוגבה. על לבן ההיגיון מתהפך: לבן נקי
      עם מסגרת דקה, והצל הוא זה שמרים אותם */
   .tst-card{background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-sm)}
@@ -942,6 +952,32 @@
 
 <main>
 
+
+  <section class="folio rev" aria-label="פרויקטים נבחרים">
+    <div class="fhead">
+      <div class="fhead-text"><div class="lab">Portfolio</div><h2>מתוך הפרויקטים שלי</h2></div>
+      <div class="cf-nav">
+        <button id="cfPrev" class="cf-arrow" type="button" aria-label="הפרויקט הקודם"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l6 7-6 7"/></svg></button>
+        <button id="cfNext" class="cf-arrow" type="button" aria-label="הפרויקט הבא"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-6 7 6 7"/></svg></button>
+      </div>
+    </div>
+    <div class="cf" id="cf" role="group" aria-roledescription="קרוסלת פרויקטים" tabindex="0" aria-label="פרויקטים — החליקו או השתמשו בחיצים">
+      <div class="cf-stage" id="cfStage">
+        <div class="cf-slide" data-cap="סלון ופינת אוכל"><picture><img src="project-1.jpg?v=2" alt="סלון ופינת אוכל — נטע גוטמן אדריכלים" width="1350" height="900" style="object-position:center" loading="lazy" decoding="async"></picture></div>
+        <div class="cf-slide" data-cap="כרמל 26 · צור יגאל"><picture><img src="project-2.jpg?v=2" alt="מטבח עם אי ומדרגות מתכת, כרמל 26 — נטע גוטמן אדריכלים" width="1350" height="900" style="object-position:center" loading="lazy" decoding="async"></picture></div>
+        <div class="cf-slide" data-cap="עצמון 33 · צור יגאל"><picture><img src="project-3.jpg?v=2" alt="סלון מואר, עצמון 33 — נטע גוטמן אדריכלים" width="1350" height="900" style="object-position:center" loading="lazy" decoding="async"></picture></div>
+        <div class="cf-slide" data-cap="מטבח לבן"><picture><img src="project-4.jpg?v=2" alt="מטבח לבן עם כיסאות בר — נטע גוטמן אדריכלים" width="1350" height="900" style="object-position:center" loading="lazy" decoding="async"></picture></div>
+        <div class="cf-slide" data-cap="מטבח ופינת אוכל"><picture><img src="project-5.jpg?v=2" alt="מטבח ופינת אוכל — נטע גוטמן אדריכלים" width="1350" height="900" style="object-position:center" loading="lazy" decoding="async"></picture></div>
+        <div class="cf-slide" data-cap="כרמל 26 · צור יגאל"><picture><img src="project-6.jpg?v=2" alt="סלון ופינת עבודה, כרמל 26 — נטע גוטמן אדריכלים" width="1350" height="900" style="object-position:center" loading="lazy" decoding="async"></picture></div>
+        <div class="cf-slide" data-cap="סלון עם אח"><picture><img src="project-7.jpg?v=2" alt="סלון עם אח וספה בגוון טרקוטה — נטע גוטמן אדריכלים" width="1350" height="900" style="object-position:center" loading="lazy" decoding="async"></picture></div>
+        <div class="cf-slide" data-start data-cap="חדר רחצה"><picture><img src="project-8.jpg?v=2" alt="חדר רחצה — נטע גוטמן אדריכלים" width="1350" height="900" style="object-position:center" loading="eager" fetchpriority="high" decoding="async"></picture></div>
+      </div>
+    </div>
+    <div class="folio-cta rev">
+      <a href="https://www.innh0me.com/%D7%A2%D7%99%D7%A6%D7%95%D7%91%D7%97%D7%9C%D7%9C%D7%99%D7%9D%D7%A4%D7%A8%D7%98%D7%99%D7%99%D7%9D" target="_blank" rel="noopener" class="ghost-cta">לצפייה בכל הפרויקטים <span aria-hidden="true">‹</span></a>
+    </div>
+  </section>
+
   <section class="ba-block" aria-label="לפני ואחרי">
     <div class="ba-head">
       <div class="eyebrow rev"><span class="lab">לפני ואחרי</span><span class="rule"></span></div>
@@ -994,30 +1030,6 @@
     </div>
   </section>
 
-  <section class="folio rev" aria-label="פרויקטים נבחרים">
-    <div class="fhead">
-      <div class="fhead-text"><div class="lab">Portfolio</div><h2>מתוך הפרויקטים שלי</h2></div>
-      <div class="cf-nav">
-        <button id="cfPrev" class="cf-arrow" type="button" aria-label="הפרויקט הקודם"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l6 7-6 7"/></svg></button>
-        <button id="cfNext" class="cf-arrow" type="button" aria-label="הפרויקט הבא"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-6 7 6 7"/></svg></button>
-      </div>
-    </div>
-    <div class="cf" id="cf" role="group" aria-roledescription="קרוסלת פרויקטים" tabindex="0" aria-label="פרויקטים — החליקו או השתמשו בחיצים">
-      <div class="cf-stage" id="cfStage">
-        <div class="cf-slide" data-cap="סלון ופינת אוכל"><picture><img src="project-1.jpg?v=2" alt="סלון ופינת אוכל — נטע גוטמן אדריכלים" width="1350" height="900" style="object-position:center" loading="lazy" decoding="async"></picture></div>
-        <div class="cf-slide" data-cap="כרמל 26 · צור יגאל"><picture><img src="project-2.jpg?v=2" alt="מטבח עם אי ומדרגות מתכת, כרמל 26 — נטע גוטמן אדריכלים" width="1350" height="900" style="object-position:center" loading="lazy" decoding="async"></picture></div>
-        <div class="cf-slide" data-cap="עצמון 33 · צור יגאל"><picture><img src="project-3.jpg?v=2" alt="סלון מואר, עצמון 33 — נטע גוטמן אדריכלים" width="1350" height="900" style="object-position:center" loading="lazy" decoding="async"></picture></div>
-        <div class="cf-slide" data-cap="מטבח לבן"><picture><img src="project-4.jpg?v=2" alt="מטבח לבן עם כיסאות בר — נטע גוטמן אדריכלים" width="1350" height="900" style="object-position:center" loading="lazy" decoding="async"></picture></div>
-        <div class="cf-slide" data-cap="מטבח ופינת אוכל"><picture><img src="project-5.jpg?v=2" alt="מטבח ופינת אוכל — נטע גוטמן אדריכלים" width="1350" height="900" style="object-position:center" loading="eager" fetchpriority="high" decoding="async"></picture></div>
-        <div class="cf-slide" data-cap="כרמל 26 · צור יגאל"><picture><img src="project-6.jpg?v=2" alt="סלון ופינת עבודה, כרמל 26 — נטע גוטמן אדריכלים" width="1350" height="900" style="object-position:center" loading="lazy" decoding="async"></picture></div>
-        <div class="cf-slide" data-cap="סלון עם אח"><picture><img src="project-7.jpg?v=2" alt="סלון עם אח וספה בגוון טרקוטה — נטע גוטמן אדריכלים" width="1350" height="900" style="object-position:center" loading="lazy" decoding="async"></picture></div>
-        <div class="cf-slide" data-cap="חדר רחצה"><picture><img src="project-8.jpg?v=2" alt="חדר רחצה — נטע גוטמן אדריכלים" width="1350" height="900" style="object-position:center" loading="lazy" decoding="async"></picture></div>
-      </div>
-    </div>
-    <div class="folio-cta rev">
-      <a href="https://www.innh0me.com/%D7%A2%D7%99%D7%A6%D7%95%D7%91%D7%97%D7%9C%D7%9C%D7%99%D7%9D%D7%A4%D7%A8%D7%98%D7%99%D7%99%D7%9D" target="_blank" rel="noopener" class="ghost-cta">לצפייה בכל הפרויקטים <span aria-hidden="true">‹</span></a>
-    </div>
-  </section>
 
   <div class="wrap">
     <section class="tst rev" aria-label="המלצות לקוחות">
@@ -1418,7 +1430,12 @@
     var stage=document.getElementById('cfStage'); if(!stage) return;
     var slides=[].slice.call(stage.children);
     var cf=document.getElementById('cf');
-    var n=slides.length, active=Math.floor(n/2), pos=active, dragging=false, startX=0, w=0;
+    /* הקרוסלה נפתחת על השקופית שמסומנת \u200Edata-start\u200E, ובהיעדרה על האמצעית.
+       סימון מפורש ולא מיקום קבוע: נטע בחרה תמונת פתיחה, ואם יתווספו
+       או יוסרו שקופיות המיקום האמצעי היה מזיז אותה בלי שאיש ישים לב */
+    var startAt=-1;
+    for(var si=0;si<slides.length;si++){ if(slides[si].hasAttribute('data-start')){ startAt=si; break; } }
+    var n=slides.length, active=(startAt>=0?startAt:Math.floor(n/2)), pos=active, dragging=false, startX=0, w=0;
 
     function tf(o){
       var a=Math.abs(o);
