@@ -125,7 +125,6 @@
   @media (prefers-reduced-motion:reduce){.hero-cta,.hc-chev{transition:none}.hero-cta:hover{transform:none}.hero-cta:hover .hc-chev{transform:none}}
   /* הקריאה לפעולה שסוגרת את הדף. משתמשת בסגנון הכפתור של הגיבור כדי
      שהשפה העיצובית תישאר אחת, ומרווחת מהציטוט שמעליה ומהפוטר שמתחתיה */
-  .closing-cta{text-align:center;margin:clamp(26px,5vw,38px) 0 clamp(6px,1.5vw,10px)}
 
   .greet{background:var(--card-bg);border:1px solid var(--line);border-radius:16px;
     padding:14px 20px;margin:8px 0 4px;font-size:16px;color:var(--accent-deep);
@@ -465,7 +464,7 @@
   .qualify-section{max-width:980px;margin:clamp(56px,9vw,78px) auto 0;padding:0 22px}
   /* הסקשן פותח עכשיו את הדף מיד אחרי הגיבור, שכבר יש לו ריפוד תחתון.
      מרווח הפתיחה המלא נועד להפריד מהציטוט שקדם לו במיקום הישן ולכן מצומצם כאן */
-  main > .qualify-section:first-child{margin-top:clamp(6px,1.5vw,14px)}
+  main > .qualify-section{margin-top:clamp(6px,1.5vw,14px)}
   /* אחרי הסרת בלוק הפתיחה נשאר בסקשן רק כרטיס השאלון. הגריד הדו-טורי הוסר —
      טור אחד, והכרטיס ממורכז ברוחב טופס נוח כדי ששורות התשובות ורשת היומן
      לא יימתחו לרוחב הסקשן המלא. ‎margin-block‎ ולא ‎margin‎ בדסקטופ, אחרת
@@ -654,7 +653,7 @@
     --q-ivory:var(--text-on-dark); --q-text:var(--text-on-dark); --q-sub:var(--sub-on-dark);
   }
   /* פריסה במלוא הרוחב. הגיבור מעליה בהיר, ולכן התפר העליון מדורג */
-  main > .qualify-section:first-child{
+  main > .qualify-section{
     position:relative;left:50%;right:50%;margin-inline:-50vw;width:100vw;max-width:none;
     margin-top:0;padding:0;
   }
@@ -794,6 +793,46 @@
   .tst-shot img{border:1px solid var(--ink-border);border-radius:8px;display:block}
 
   /* ============================================================
+     היפוך הפלטה — לבקשת נטע. הדף היה שבעים אחוז שחור והרגיש כבד.
+     עכשיו נשאר אזור כהה אחד בלבד: הבאנר עם השאלון בתחתית.
+
+     ההיפוך נעשה בהחלפת טוקנים ברמת הסקשן ולא בשכתוב עשרות כללים.
+     משתני CSS יורשים כלפי מטה, ולכן הגדרה מחדש של \u200E--ink\u200E ושכניו
+     בתוך הסקשן מפילה אותם על כל צאצא שהשתמש בהם. פחות מקומות
+     לפספס, ואפשר להפוך חזרה בהסרת בלוק אחד.
+     ============================================================ */
+  .ba-block,.folio,.tst{
+    --ink:var(--pearl); --ink-soft:#fff; --ink-border:var(--line);
+    --dark:var(--pearl); --dark-2:var(--pearl-soft); --dark-section:var(--pearl);
+    --text-on-dark:var(--text-on-light); --sub-on-dark:var(--sub-on-light);
+    background:var(--pearl); color:var(--text-on-light)}
+
+  /* ערכים קשיחים שנכתבו לרקע כהה ולא עוברים דרך טוקן */
+  .ba-block .eyebrow .rule,.tst .eyebrow .rule{
+    background:linear-gradient(90deg,var(--line),transparent)}
+  .ba-block .eyebrow{color:var(--sub-on-light)}
+  /* טקסטים ונקודות שנכתבו בשקיפות של שנהב — על לבן הם כמעט נעלמים.
+     שקיפות לא ניתנת להיפוך דרך טוקן, ולכן כל אחד מהם מוחלף בנפרד */
+  .ba-block .ba-hint,.tst-sub{color:var(--sub-on-light)}
+  .tst-meta{color:var(--sub-on-light)}
+  .tst-meta svg{fill:var(--sub-on-light)}
+  .ba-dots button,.tst-dots button{background:rgba(43,40,37,.22)}
+  .tst-dots button:hover{background:rgba(43,40,37,.42)}
+  .ba-block .eyebrow .lab,.folio .fhead h2,.tst-head h2{color:var(--text-on-light)}
+  .ba-arrow,.cf-arrow,.tst-arrow{color:var(--text-on-light)}
+  .ba{background:repeating-linear-gradient(45deg,#efece6,#efece6 16px,#e6e2db 16px,#e6e2db 32px)}
+  .cf::before{background:linear-gradient(90deg,var(--pearl),transparent)}
+  .cf::after{background:linear-gradient(270deg,var(--pearl),transparent)}
+  /* הכרטיסים היו משטח כהה מוגבה. על לבן ההיגיון מתהפך: לבן נקי
+     עם מסגרת דקה, והצל הוא זה שמרים אותם */
+  .tst-card{background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-sm)}
+  .tst-shot img{border:1px solid var(--line)}
+  .tst-meta{color:var(--sub-on-light)}
+  .ghost-cta{color:var(--text-on-light);border-color:var(--ink-border)}
+  .ghost-cta:hover{background:var(--btn);color:var(--btn-ink);border-color:var(--btn)}
+  .bk-grid.bk-skl .bk-cell{background:linear-gradient(90deg,#eceae4,#f6f4ef,#eceae4)}
+
+  /* ============================================================
      תפרים. אין הדרגות — אזור בהיר ואזור כהה נוגעים ישירות, והמגע
      מסומן בקו זהב של פיקסל אחד ובמעוין זהב במרכזו. הניגוד חד בכוונה.
      שני צדי כל תפר מקבלים ריפוד נדיב, אחרת הקו נראה כתקלה ולא כהחלטה.
@@ -803,40 +842,35 @@
   .seam-mark{position:absolute;top:-7px;right:50%;transform:translateX(50%) rotate(45deg);
     width:12px;height:12px;background:var(--gold);pointer-events:none;z-index:3}
 
-  /* ‖ תפר 1 — הגיבור אל השאלון. כאן יושב כרטיס החפיפה, ולכן אין מעוין:
-     הכרטיס עצמו הוא הסימן במרכז הקו.
+  /* אחרי ההיפוך נשארו בדף שני תפרים בלבד, שניהם סביב הבאנר:
+     הכניסה אליו מהאזור הלבן, והיציאה ממנו אל הפוטר.
 
-     ‎--oc-half‎ הוא המרווח ששני צדי התפר מפנים לכרטיס. נמדד: גובה הכרטיס
-     הוא 214-218 בכל הרוחבים (360, 768, 1440), כלומר חצי גובה ≈109. הערך
-     כאן גדול ממנו בכ-60, וזה המרווח הנשימתי שנשאר בפועל בין הכרטיס לבין
-     הכותרת מעליו ותווית השלב מתחתיו */
+     ‎--oc-half‎ הוא המרווח ששני צדי התפר העליון מפנים לכרטיס החפיפה.
+     נמדד: גובה הכרטיס 214-218 בכל הרוחבים, כלומר חצי גובה ≈109.
+     הערך גדול ממנו בכ-60, וזה המרווח הנשימתי שנשאר בפועל */
   :root{--oc-half:clamp(168px,15vw,190px)}
-  .hero{padding-bottom:var(--oc-half)}
-  main > .qualify-section:first-child{
+
+  /* ‖ תפר 1 — האזור הלבן אל הבאנר. כאן יושב כרטיס החפיפה ולכן אין
+     מעוין: הכרטיס עצמו הוא הסימן במרכז הקו */
+  main > .wrap{padding-bottom:var(--oc-half)}
+  main > .qualify-section{
     position:relative;background:var(--ink);
     border-top:1px solid var(--seam-line)}
 
-  /* ‖ תפר 2 — ההמלצות אל האזור הבהיר. ל-‎.tst‎ יש ‎overflow:hidden‎, ולכן
-     מעוין ממוקם בתוכה היה נחתך. הקו עצמו הוא ‎border-bottom‎ שלה (גבול
-     אינו נחתך), והמעוין תלוי על עוגן בגובה אפס מיד אחריה */
-  .tst{padding-bottom:var(--seam-pad);background:var(--ink);
-    border-bottom:1px solid var(--seam-line)}
-  .seam-anchor{position:relative;height:0}
-  .light-after-dark{padding-top:var(--seam-pad)}
-
-  /* ‖ תפר 3 — סגירת הדף אל הפוטר */
-  .closing-cta{margin-bottom:var(--seam-pad)}
-  /* ‎footer‎ נושא ‎class="wrap"‎ ולכן היה מוגבל ל-‎--maxw‎. כל עוד הרקע שלו היה
-     שקוף זה לא הפריע, אבל עכשיו הוא כהה — בלי מלוא הרוחב נשארים שני פסי
-     פנינה בצדדים. הפוטר הוא ילד ישיר של ‎body‎, ולכן די לבטל את ההגבלה;
-     אסור לפרוס אותו בטריק ‎left:50%/-50vw‎ כמו הסקציות שבתוך ה-‎wrap‎ —
-     שם הוא יוצר גלישה אופקית שמזיזה את כל הדף ב-RTL. הטקסט ממורכז ממילא.
-     הבורר הוא ‎footer.wrap‎ ולא ‎footer‎: ‎.wrap‎ היא מחלקה וגוברת על בורר תג
-     בכל מקרה, ולכן ‎max-width‎ ו-‎padding‎ פשוט נבלעו */
+  /* ‖ תפר 2 — יציאה מהבאנר אל הפוטר הלבן.
+     המעוין מעוגן לקצה התחתון של הבאנר ולא לראש הפוטר: בין השניים יש
+     מרווח, וכשהוא היה תלוי על הפוטר הוא נחת 44 פיקסל מתחת לגבול */
+  .qualify-section{border-bottom:1px solid var(--seam-line)}
+  main > .qualify-section::after{content:"";position:absolute;bottom:-7px;right:50%;
+    transform:translateX(50%) rotate(45deg);width:12px;height:12px;
+    background:var(--gold);pointer-events:none;z-index:3}
+  /* ‎footer‎ נושא ‎class="wrap"‎ ולכן מוגבל ל-‎--maxw‎, ומחלקה גוברת על בורר
+     תג בכל סדר — לכן הבורר הוא ‎footer.wrap‎. אסור לפרוס אותו בטריק
+     ‎left:50%/-50vw‎ כמו הסקציות שבתוך ה-‎wrap‎: על ילד ישיר של ‎body‎ הוא
+     יוצר גלישה אופקית שמזיזה את כל הדף ב-RTL */
   footer.wrap{position:relative;max-width:none;margin-inline:0;width:auto;
     padding-inline:22px;padding-top:var(--seam-pad);
-    background:var(--ink);border-top:1px solid var(--seam-line);
-    color:var(--sub-on-dark)}
+    background:var(--pearl);color:var(--sub-on-light)}
 
   /* ============================================================
      כרטיס החפיפה — פעם אחת בדף, על תפר 1.
@@ -856,17 +890,13 @@
     font-size:clamp(23px,4.4vw,30px);line-height:1.3;margin:0 0 10px;font-weight:600}
   .overlap-card p{margin:0;color:var(--sub-on-dark);font-size:15px;line-height:1.7}
   @media (max-width:600px){.overlap-card{padding:30px 22px}}
-  footer .fbrand{color:var(--gold)}
-  .ftag{color:var(--text-on-dark)}
-  footer a{color:var(--text-on-dark)}
-  /* העיגולים ירשו ‎background:var(--card-bg)‎ — כלומר פנינה. על פוטר שחור
-     הם נראו כשני דיסקים לבנים זוהרים, ולכן גם הרקע והצל מוחלפים */
-  .social a{background:var(--ink-soft);border-color:var(--ink-border);
-    color:var(--sub-on-dark);box-shadow:none}
-  .social a:hover{background:var(--gold);border-color:var(--gold);color:var(--ink)}
-  /* כפתור הסגירה יושב עכשיו על תפר מתכהה — הפוך לפנינה על שחור */
-  .closing-cta .hero-cta{background:var(--gold);color:var(--ink)}
-  .closing-cta .hero-cta:hover{background:#d8b17c}
+  /* הפוטר חזר להיות בהיר יחד עם שאר הדף */
+  footer .fbrand{color:var(--accent-deep)}
+  .ftag{color:var(--text-on-light)}
+  footer a{color:var(--accent-deep)}
+  .social a{background:#fff;border-color:var(--line);
+    color:var(--accent-deep);box-shadow:var(--shadow-sm)}
+  .social a:hover{background:var(--btn);border-color:var(--btn);color:var(--btn-ink)}
 </style>
 </head>
 <body>
@@ -899,151 +929,18 @@
     <li>שרון · מרכז · צפון</li>
     <li>התפרסמה במגזין Walls ובפיק אינטריור</li>
   </ul>
+  <!-- הקיצור לבאנר. אחרי שהשאלון ירד לתחתית, ליד שהגיע מהוואטסאפ
+       במפורש כדי לקבוע היה נאלץ לגלול דרך שתי קרוסלות כדי למצוא אותו.
+       מי שבא להתרשם ממשיך לגלול כרגיל ולא מושפע -->
+  <a href="#book" class="hero-cta">
+    <span class="hc-main">לקביעת שיחה <span class="hc-chev" aria-hidden="true">‹</span></span>
+    <span class="hc-sub">שלוש שאלות קצרות · ללא עלות וללא התחייבות</span>
+  </a>
 </header>
 
 <div class="wrap"><div class="greet" id="greet" role="status"></div></div>
 
 <main>
-  <section class="qualify-section rev" aria-label="קביעת שיחה">
-    <!-- כרטיס החפיפה יושב על קו המגע בין הגיבור לאזור הכהה. הוא מחזיק את
-         פתיח השאלון — התווית, הכותרת וההבטחה — שהיו קודם בתוך הטופס.
-         לא הועתקו, הועברו: אין כפילות -->
-    <div class="overlap-anchor">
-      <div class="overlap-card">
-        <div class="oc-lab">קביעת שיחה</div>
-        <h2>כמה שאלות קצרות ונקבע</h2>
-        <p>פחות מדקה — ובסוף נקבע שיחת היכרות, ללא עלות וללא התחייבות. ככה אני מגיעה לשיחה כשאני כבר מבינה את הפרויקט שלכם.</p>
-      </div>
-    </div>
-    <div class="qualify">
-      <section class="card book" id="book" aria-label="שאלון וקביעת שיחה">
-      <div id="q-screen">
-        <div class="qcount" id="qCount" dir="rtl">שלב 1 מתוך 3</div>
-        <div class="qpills" id="qPills" aria-hidden="true"><i></i><i></i><i></i></div>
-
-        <div class="qw open" data-step="0">
-          <div class="qw-in">
-            <div class="q" role="radiogroup" aria-label="מה מתאר הכי טוב את הבית שלכם">
-              <button type="button" class="q-head">
-                <span class="qt">1. מה מתאר הכי טוב את הבית שלכם?</span>
-                <span class="q-chosen"><span class="v"></span><span class="ck" aria-hidden="true">✓</span></span>
-              </button>
-              <div class="q-body"><div class="q-body-in">
-                <div class="opts stack" data-q="area">
-                  <label class="opt"><input type="radio" name="area" value="בית ותיק שרוצים לשפץ"><span>בית ותיק שרוצים לשפץ</span></label>
-                  <label class="opt"><input type="radio" name="area" value="דירה חדשה מקבלן — כבר גרים בה"><span>דירה חדשה מקבלן שכבר גרים בה</span></label>
-                  <label class="opt"><input type="radio" name="area" value="דירה חדשה מקבלן — לקראת כניסה"><span>דירה חדשה מקבלן לקראת כניסה</span></label>
-                </div>
-              </div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="qw" data-step="1">
-          <div class="qw-in">
-            <div class="q" role="radiogroup" aria-label="מה הגודל של הנכס, בערך">
-              <button type="button" class="q-head">
-                <span class="qt">2. מה הגודל של הנכס, בערך?</span>
-                <span class="q-chosen"><span class="v"></span><span class="ck" aria-hidden="true">✓</span></span>
-              </button>
-              <div class="q-body"><div class="q-body-in">
-                <p class="qhint">ככה אני מגיעה לשיחה כשאני כבר מכירה את היקף הפרויקט</p>
-                <div class="opts stack" data-q="budget">
-                  <!-- bdi ולא span: הסלקטור ‎.opt span‎ הוא צאצא, ו-span פנימי היה מקבל עיצוב של אופציה שלמה -->
-                  <label class="opt"><input type="radio" name="budget" value="50-100 מ״ר"><span><bdi dir="ltr">50–100</bdi> מ״ר</span></label>
-                  <label class="opt"><input type="radio" name="budget" value="100-150 מ״ר"><span><bdi dir="ltr">100–150</bdi> מ״ר</span></label>
-                  <label class="opt"><input type="radio" name="budget" value="מעל 150 מ״ר"><span>מעל 150 מ״ר</span></label>
-                </div>
-              </div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="qw" data-step="2">
-          <div class="qw-in">
-            <div class="q" role="radiogroup" aria-label="מתי הייתם רוצים להתחיל">
-              <button type="button" class="q-head">
-                <span class="qt">3. מתי הייתם רוצים להתחיל?</span>
-                <span class="q-chosen"><span class="v"></span><span class="ck" aria-hidden="true">✓</span></span>
-              </button>
-              <div class="q-body"><div class="q-body-in">
-                <div class="opts stack" data-q="service">
-                  <label class="opt"><input type="radio" name="service" value="מיידי — רוצים לצאת לדרך"><span>מיידי, רוצים לצאת לדרך</span></label>
-                  <label class="opt"><input type="radio" name="service" value="בחודשים הקרובים"><span>בחודשים הקרובים</span></label>
-                  <label class="opt"><input type="radio" name="service" value="עדיין בודקים את הכיוון"><span>עדיין בודקים את הכיוון</span></label>
-                </div>
-              </div></div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <div id="book-screen">
-        <div class="qres"><div class="qbadge">✓</div><h2 style="margin-bottom:8px">מעולה, נשאר רק לבחור זמן</h2><p style="color:var(--muted)">בחרו מהיומן שלי את הזמן שנוח לכם</p></div>
-        <div class="booking" id="booking">
-          <div class="bk-microlabel"><span class="bk-dia" aria-hidden="true"></span>היומן של נטע</div>
-          <button class="bk-field" id="bkField" type="button" aria-haspopup="dialog" aria-expanded="false">
-            <svg class="bk-cal-ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-            <span class="bk-field-text placeholder" id="bkFieldText">בחרו תאריך לשיחה</span>
-            <span class="bk-chev" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span>
-            <span class="bk-fchk" aria-hidden="true">✓</span>
-          </button>
-          <div class="bk-backdrop" id="bkBackdrop"></div>
-          <!-- עוגן ממוקם שגובהו אפס: הפופאובר נתלה על השדה ולא על כרטיס הבוקינג כולו.
-               בלעדיו ‎top:100%‎ נמדד מול הכרטיס, וככל שנוספו שעות וטופס הוא צנח לתחתית -->
-          <div class="bk-anchor">
-          <div class="bk-pop" id="bkPop" role="dialog" aria-label="בחירת תאריך" hidden>
-            <div class="bk-pop-head">
-              <button class="bk-nav" id="bkPrev" type="button" aria-label="חודש קודם">›</button>
-              <div class="bk-month" id="bkMonth"></div>
-              <button class="bk-nav" id="bkNext" type="button" aria-label="חודש הבא">‹</button>
-            </div>
-            <div class="bk-dow" aria-hidden="true"><span>א׳</span><span>ב׳</span><span>ג׳</span><span>ד׳</span><span>ה׳</span><span>ו׳</span><span>ש׳</span></div>
-            <div class="bk-grid" id="bkGrid" role="grid" aria-label="בחירת יום"></div>
-            <div class="bk-legend"><span class="dot"></span> ימים פנויים לשיחה</div>
-          </div>
-          </div><!-- /bk-anchor -->
-          <div class="bk-times-wrap" id="bkTimesWrap" hidden>
-            <div class="bk-times-label" id="bkTimesLabel"></div>
-            <div class="bk-times" id="bkTimes" role="listbox" aria-label="בחירת שעה"></div>
-          </div>
-          <div class="bk-confirm" id="bkConfirm" hidden>
-            <div class="bk-summary" id="bkSummary"></div>
-            <div class="bk-details">
-              <div class="bk-identity" id="bkIdentity" hidden>
-                <span class="bk-id-text">הפגישה תירשם על שם <b id="bkIdName"></b> · <span id="bkIdPhone" dir="ltr"></span></span>
-                <button type="button" class="bk-id-edit" id="bkIdEdit">לא אתם? עריכה</button>
-              </div>
-              <div class="bk-form-sleeve" id="bkFormSleeve">
-                <div class="bk-form-in">
-                  <div class="bk-form-title">עוד רגע, למי לרשום את הפגישה?</div>
-                  <label class="bkf"><span>שם מלא</span><input type="text" id="bkName" autocomplete="name" placeholder="השם שלכם"></label>
-                  <label class="bkf"><span>טלפון נייד</span><input type="tel" id="bkPhone" autocomplete="tel" inputmode="tel" placeholder="050-0000000"><span class="bkf-err" id="bkPhoneErr" role="alert"></span></label>
-                </div>
-              </div>
-            </div>
-            <button class="bk-go" id="bkGo" type="button" disabled>אישור וקביעת שיחה</button>
-            <div class="bk-err" id="bkErr"></div>
-          </div>
-          <div class="bk-done" id="bkDone" role="dialog" aria-modal="true" hidden>
-            <div class="bk-done-card">
-              <div class="bk-check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.5l5 5 11-12"/></svg></div>
-              <h3>הפגישה נקבעה!</h3>
-              <p class="bk-done-line" id="bkDoneLine"></p>
-              <p class="bk-done-note">נשלח לכם אישור בוואטסאפ 🤍</p>
-              <button class="bk-done-close" id="bkDoneClose" type="button">סגירה</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div id="nofit-screen">
-        <div class="qres"><div class="qbadge warm">🤍</div><h2 style="margin-bottom:8px">תודה שמילאתם!</h2><p style="color:var(--muted)">הפגישה שלנו נקבעה. אישור עם כל הפרטים בדרך אליכם בוואטסאפ. בינתיים מוזמנים להתרשם מהפרויקטים.</p></div>
-      </div>
-      </section>
-    </div>
-  </section>
 
   <section class="ba-block" aria-label="לפני ואחרי">
     <div class="ba-head">
@@ -1210,32 +1107,163 @@
       </div>
     </section>
 
-    <!-- עוגן בגובה אפס. המעוין חייב הורה שאינו חותך, ו-‎.tst‎ היא overflow:hidden -->
-    <div class="seam-anchor" aria-hidden="true"><span class="seam-mark"></span></div>
 
     <div class="tst-lb" id="tstLb" hidden role="dialog" aria-modal="true" aria-label="תצוגה מוגדלת">
       <button class="tst-lb-x" id="tstLbX" type="button" aria-label="סגירה"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
       <div class="tst-lb-body" id="tstLbBody"></div>
     </div>
 
-    <div class="eyebrow eyebrow-tight rev light-after-dark"><span class="lab">הגישה שלי</span><span class="rule"></span></div>
+    <div class="eyebrow eyebrow-tight rev"><span class="lab">הגישה שלי</span><span class="rule"></span></div>
     <section class="card quote-card rev" aria-label="הגישה של נטע">
       <p>בכל בית אותו אני מתכננת אני קודם כל רואה אתכם, את האנשים שיחיו בו, את מי שאתם, את מה שחשוב לכם, ואת מה שעושה לכם הכי טוב. יחד נבנה חלום שמותאם בדיוק אליכם. אני כאן כדי לוודא שהבית יהפוך למקום שמרחיב לכם את הלב כל יום מחדש</p>
     </section>
 
     <!-- סוגר את הדף בקריאה לפעולה. מי שגלל עד לכאן קרא הכל וכבר לא רואה
          את היומן, ולכן מחזירים אותו אליו במקום להשאיר אותו בפוטר -->
-    <div class="closing-cta rev">
-      <a href="#book" class="hero-cta">
-        <span class="hc-main">לבחירת מועד ביומן <span class="hc-chev" aria-hidden="true">‹</span></span>
-        <span class="hc-sub">שלוש שאלות קצרות · ללא עלות וללא התחייבות</span>
-      </a>
-    </div>
   </div>
+  <section class="qualify-section rev" aria-label="קביעת שיחה">
+    <!-- כרטיס החפיפה יושב על קו המגע בין הגיבור לאזור הכהה. הוא מחזיק את
+         פתיח השאלון — התווית, הכותרת וההבטחה — שהיו קודם בתוך הטופס.
+         לא הועתקו, הועברו: אין כפילות -->
+    <div class="overlap-anchor">
+      <div class="overlap-card">
+        <div class="oc-lab">קביעת שיחה</div>
+        <h2>כמה שאלות קצרות ונקבע</h2>
+        <p>פחות מדקה — ובסוף נקבע שיחת היכרות, ללא עלות וללא התחייבות. ככה אני מגיעה לשיחה כשאני כבר מבינה את הפרויקט שלכם.</p>
+      </div>
+    </div>
+    <div class="qualify">
+      <section class="card book" id="book" aria-label="שאלון וקביעת שיחה">
+      <div id="q-screen">
+        <div class="qcount" id="qCount" dir="rtl">שלב 1 מתוך 3</div>
+        <div class="qpills" id="qPills" aria-hidden="true"><i></i><i></i><i></i></div>
+
+        <div class="qw open" data-step="0">
+          <div class="qw-in">
+            <div class="q" role="radiogroup" aria-label="מה מתאר הכי טוב את הבית שלכם">
+              <button type="button" class="q-head">
+                <span class="qt">1. מה מתאר הכי טוב את הבית שלכם?</span>
+                <span class="q-chosen"><span class="v"></span><span class="ck" aria-hidden="true">✓</span></span>
+              </button>
+              <div class="q-body"><div class="q-body-in">
+                <div class="opts stack" data-q="area">
+                  <label class="opt"><input type="radio" name="area" value="בית ותיק שרוצים לשפץ"><span>בית ותיק שרוצים לשפץ</span></label>
+                  <label class="opt"><input type="radio" name="area" value="דירה חדשה מקבלן — כבר גרים בה"><span>דירה חדשה מקבלן שכבר גרים בה</span></label>
+                  <label class="opt"><input type="radio" name="area" value="דירה חדשה מקבלן — לקראת כניסה"><span>דירה חדשה מקבלן לקראת כניסה</span></label>
+                </div>
+              </div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="qw" data-step="1">
+          <div class="qw-in">
+            <div class="q" role="radiogroup" aria-label="מה הגודל של הנכס, בערך">
+              <button type="button" class="q-head">
+                <span class="qt">2. מה הגודל של הנכס, בערך?</span>
+                <span class="q-chosen"><span class="v"></span><span class="ck" aria-hidden="true">✓</span></span>
+              </button>
+              <div class="q-body"><div class="q-body-in">
+                <p class="qhint">ככה אני מגיעה לשיחה כשאני כבר מכירה את היקף הפרויקט</p>
+                <div class="opts stack" data-q="budget">
+                  <!-- bdi ולא span: הסלקטור ‎.opt span‎ הוא צאצא, ו-span פנימי היה מקבל עיצוב של אופציה שלמה -->
+                  <label class="opt"><input type="radio" name="budget" value="50-100 מ״ר"><span><bdi dir="ltr">50–100</bdi> מ״ר</span></label>
+                  <label class="opt"><input type="radio" name="budget" value="100-150 מ״ר"><span><bdi dir="ltr">100–150</bdi> מ״ר</span></label>
+                  <label class="opt"><input type="radio" name="budget" value="מעל 150 מ״ר"><span>מעל 150 מ״ר</span></label>
+                </div>
+              </div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="qw" data-step="2">
+          <div class="qw-in">
+            <div class="q" role="radiogroup" aria-label="מתי הייתם רוצים להתחיל">
+              <button type="button" class="q-head">
+                <span class="qt">3. מתי הייתם רוצים להתחיל?</span>
+                <span class="q-chosen"><span class="v"></span><span class="ck" aria-hidden="true">✓</span></span>
+              </button>
+              <div class="q-body"><div class="q-body-in">
+                <div class="opts stack" data-q="service">
+                  <label class="opt"><input type="radio" name="service" value="מיידי — רוצים לצאת לדרך"><span>מיידי, רוצים לצאת לדרך</span></label>
+                  <label class="opt"><input type="radio" name="service" value="בחודשים הקרובים"><span>בחודשים הקרובים</span></label>
+                  <label class="opt"><input type="radio" name="service" value="עדיין בודקים את הכיוון"><span>עדיין בודקים את הכיוון</span></label>
+                </div>
+              </div></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div id="book-screen">
+        <div class="qres"><div class="qbadge">✓</div><h2 style="margin-bottom:8px">מעולה, נשאר רק לבחור זמן</h2><p style="color:var(--muted)">בחרו מהיומן שלי את הזמן שנוח לכם</p></div>
+        <div class="booking" id="booking">
+          <div class="bk-microlabel"><span class="bk-dia" aria-hidden="true"></span>היומן של נטע</div>
+          <button class="bk-field" id="bkField" type="button" aria-haspopup="dialog" aria-expanded="false">
+            <svg class="bk-cal-ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <span class="bk-field-text placeholder" id="bkFieldText">בחרו תאריך לשיחה</span>
+            <span class="bk-chev" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span>
+            <span class="bk-fchk" aria-hidden="true">✓</span>
+          </button>
+          <div class="bk-backdrop" id="bkBackdrop"></div>
+          <!-- עוגן ממוקם שגובהו אפס: הפופאובר נתלה על השדה ולא על כרטיס הבוקינג כולו.
+               בלעדיו ‎top:100%‎ נמדד מול הכרטיס, וככל שנוספו שעות וטופס הוא צנח לתחתית -->
+          <div class="bk-anchor">
+          <div class="bk-pop" id="bkPop" role="dialog" aria-label="בחירת תאריך" hidden>
+            <div class="bk-pop-head">
+              <button class="bk-nav" id="bkPrev" type="button" aria-label="חודש קודם">›</button>
+              <div class="bk-month" id="bkMonth"></div>
+              <button class="bk-nav" id="bkNext" type="button" aria-label="חודש הבא">‹</button>
+            </div>
+            <div class="bk-dow" aria-hidden="true"><span>א׳</span><span>ב׳</span><span>ג׳</span><span>ד׳</span><span>ה׳</span><span>ו׳</span><span>ש׳</span></div>
+            <div class="bk-grid" id="bkGrid" role="grid" aria-label="בחירת יום"></div>
+            <div class="bk-legend"><span class="dot"></span> ימים פנויים לשיחה</div>
+          </div>
+          </div><!-- /bk-anchor -->
+          <div class="bk-times-wrap" id="bkTimesWrap" hidden>
+            <div class="bk-times-label" id="bkTimesLabel"></div>
+            <div class="bk-times" id="bkTimes" role="listbox" aria-label="בחירת שעה"></div>
+          </div>
+          <div class="bk-confirm" id="bkConfirm" hidden>
+            <div class="bk-summary" id="bkSummary"></div>
+            <div class="bk-details">
+              <div class="bk-identity" id="bkIdentity" hidden>
+                <span class="bk-id-text">הפגישה תירשם על שם <b id="bkIdName"></b> · <span id="bkIdPhone" dir="ltr"></span></span>
+                <button type="button" class="bk-id-edit" id="bkIdEdit">לא אתם? עריכה</button>
+              </div>
+              <div class="bk-form-sleeve" id="bkFormSleeve">
+                <div class="bk-form-in">
+                  <div class="bk-form-title">עוד רגע, למי לרשום את הפגישה?</div>
+                  <label class="bkf"><span>שם מלא</span><input type="text" id="bkName" autocomplete="name" placeholder="השם שלכם"></label>
+                  <label class="bkf"><span>טלפון נייד</span><input type="tel" id="bkPhone" autocomplete="tel" inputmode="tel" placeholder="050-0000000"><span class="bkf-err" id="bkPhoneErr" role="alert"></span></label>
+                </div>
+              </div>
+            </div>
+            <button class="bk-go" id="bkGo" type="button" disabled>אישור וקביעת שיחה</button>
+            <div class="bk-err" id="bkErr"></div>
+          </div>
+          <div class="bk-done" id="bkDone" role="dialog" aria-modal="true" hidden>
+            <div class="bk-done-card">
+              <div class="bk-check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.5l5 5 11-12"/></svg></div>
+              <h3>הפגישה נקבעה!</h3>
+              <p class="bk-done-line" id="bkDoneLine"></p>
+              <p class="bk-done-note">נשלח לכם אישור בוואטסאפ 🤍</p>
+              <button class="bk-done-close" id="bkDoneClose" type="button">סגירה</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="nofit-screen">
+        <div class="qres"><div class="qbadge warm">🤍</div><h2 style="margin-bottom:8px">תודה שמילאתם!</h2><p style="color:var(--muted)">הפגישה שלנו נקבעה. אישור עם כל הפרטים בדרך אליכם בוואטסאפ. בינתיים מוזמנים להתרשם מהפרויקטים.</p></div>
+      </div>
+      </section>
+    </div>
+  </section>
 </main>
 
 <footer class="wrap rev">
-  <span class="seam-mark" aria-hidden="true"></span>
   <div class="fbrand">נטע גוטמן אדריכלים</div>
   <div class="ftag">כאן הופכים חלומות למציאות</div>
   <div class="social">
