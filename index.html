@@ -835,7 +835,9 @@
   .cf-slide .ph-in{background:repeating-linear-gradient(45deg,#e9e5de,#e9e5de 16px,#dfdbd3 16px,#dfdbd3 32px)}
   /* הכרטיסים היו משטח כהה מוגבה. על לבן ההיגיון מתהפך: לבן נקי
      עם מסגרת דקה, והצל הוא זה שמרים אותם */
-  .tst-card{background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-sm)}
+  /* נטע ביקשה שכרטיסי ההמלצות יהיו בצבע הדף ולא לבנים. המסגרת והצל
+     הם מה שמפריד אותם עכשיו מהרקע */
+  .tst-card,.tst-shot{background:var(--pearl);border:1px solid var(--line);box-shadow:var(--shadow-sm)}
   .tst-shot img{border:1px solid var(--line)}
   .tst-meta{color:var(--sub-on-light)}
   .ghost-cta{color:var(--text-on-light);border-color:var(--ink-border)}
@@ -843,14 +845,44 @@
   .bk-grid.bk-skl .bk-cell{background:linear-gradient(90deg,#eceae4,#f6f4ef,#eceae4)}
 
   /* ============================================================
+     הטופס עבר לבהיר — לבקשת נטע. נשאר כהה רק כרטיס הפתיחה, "הבאנר"
+     בלשונה, כי אותו היא ביקשה במפורש בשחור.
+
+     שוב בהחלפת טוקנים: כל בלוק העיצוב של השאלון עובר דרך \u200E--q-*\u200E,
+     ולכן די להגדיר אותם מחדש בהיקף \u200E.qualify\u200E — כלומר על הטופס בלבד,
+     בלי לגעת בכרטיס שמעליו. אחריהם רק הערכים הקשיחים.
+     ============================================================ */
+  .qualify-section{background:var(--pearl)}
+  .qualify-section .qualify{
+    --q-bg:var(--pearl); --q-card:#fff; --q-card-border:var(--line);
+    --q-ivory:var(--text-on-light); --q-text:var(--text-on-light);
+    --q-sub:var(--sub-on-light);
+    /* זהב על בהיר נותן 3.4 בלבד. הגוון העמוק נותן 4.9 ועובר AA */
+    --q-gold:#8a6f45}
+  .qualify-section .qualify .opt input:checked+span,
+  .qualify-section .qualify .opt span:hover,
+  .qualify-section .qualify .bk-chip:hover,
+  .qualify-section .qualify .bk-chip.sel{background:#f6f3ed}
+  .qualify-section .qualify .bk-pop{background:#fff}
+  .qualify-section .qualify .bk-cell{color:#a49c92}
+  .qualify-section .qualify .bk-nav:disabled{color:#c2bcb2}
+  .qualify-section .qualify .bk-cell.avail{color:var(--text-on-light)}
+  .qualify-section .qualify .bk-cell.avail:hover{background:#eceae4}
+  .qualify-section .qualify .bk-cell.sel{background:var(--btn)!important;color:var(--btn-ink)!important}
+  .qualify-section .qualify .bk-legend .dot{background:#eceae4}
+  .qualify-section .qualify .qcta,.qualify-section .qualify .bk-go{
+    background:var(--btn);color:var(--btn-ink)}
+  /* המחוון היה שלושה קווים כהים על שחור. על בז' הם נקראו כשלושה
+     מקפים שחורים — הלא-פעילים מתבהרים והפעיל נשאר זהב */
+  .qualify-section .qualify .qpills i{background:#d8d3ca}
+  .qualify-section .qualify .qpills i.done{background:#c9a06b}
+
+  /* ============================================================
      תפרים. אין הדרגות — אזור בהיר ואזור כהה נוגעים ישירות, והמגע
      מסומן בקו זהב של פיקסל אחד ובמעוין זהב במרכזו. הניגוד חד בכוונה.
      שני צדי כל תפר מקבלים ריפוד נדיב, אחרת הקו נראה כתקלה ולא כהחלטה.
      ============================================================ */
-  :root{--seam-pad:clamp(80px,10vw,140px); --seam-line:rgba(201,160,107,.35)}
 
-  .seam-mark{position:absolute;top:-7px;right:50%;transform:translateX(50%) rotate(45deg);
-    width:12px;height:12px;background:var(--gold);pointer-events:none;z-index:3}
 
   /* אחרי ההיפוך נשארו בדף שני תפרים בלבד, שניהם סביב הבאנר:
      הכניסה אליו מהאזור הלבן, והיציאה ממנו אל הפוטר.
@@ -863,23 +895,17 @@
   /* ‖ תפר 1 — האזור הלבן אל הבאנר. כאן יושב כרטיס החפיפה ולכן אין
      מעוין: הכרטיס עצמו הוא הסימן במרכז הקו */
   main > .wrap{padding-bottom:var(--oc-half)}
-  main > .qualify-section{
-    position:relative;background:var(--ink);
-    border-top:1px solid var(--seam-line)}
+  main > .qualify-section{position:relative;background:var(--pearl)}
 
   /* ‖ תפר 2 — יציאה מהבאנר אל הפוטר הלבן.
      המעוין מעוגן לקצה התחתון של הבאנר ולא לראש הפוטר: בין השניים יש
      מרווח, וכשהוא היה תלוי על הפוטר הוא נחת 44 פיקסל מתחת לגבול */
-  .qualify-section{border-bottom:1px solid var(--seam-line)}
-  main > .qualify-section::after{content:"";position:absolute;bottom:-7px;right:50%;
-    transform:translateX(50%) rotate(45deg);width:12px;height:12px;
-    background:var(--gold);pointer-events:none;z-index:3}
   /* ‎footer‎ נושא ‎class="wrap"‎ ולכן מוגבל ל-‎--maxw‎, ומחלקה גוברת על בורר
      תג בכל סדר — לכן הבורר הוא ‎footer.wrap‎. אסור לפרוס אותו בטריק
      ‎left:50%/-50vw‎ כמו הסקציות שבתוך ה-‎wrap‎: על ילד ישיר של ‎body‎ הוא
      יוצר גלישה אופקית שמזיזה את כל הדף ב-RTL */
   footer.wrap{position:relative;max-width:none;margin-inline:0;width:auto;
-    padding-inline:22px;padding-top:var(--seam-pad);
+    padding-inline:22px;padding-top:clamp(28px,5vw,52px);
     background:var(--pearl);color:var(--sub-on-light)}
 
   /* ============================================================
