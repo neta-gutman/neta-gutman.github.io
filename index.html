@@ -72,7 +72,10 @@
   .eyebrow .rule{flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
 
   /* hero */
-  .hero{text-align:center;padding:clamp(40px,10vw,72px) 0 26px;position:relative}
+  /* הריפוד העליון קוצץ מ-72 ל-48: שורת האמון מוסיפה גובה, וההצעה
+     חייבת להישאר גבוה. תנועה חמה שהגיעה במפורש כדי לקבוע לא צריכה
+     לגלול כדי למצוא את מה שהובטח לה בהודעה */
+  .hero{text-align:center;padding:clamp(32px,7vw,48px) 0 26px;position:relative}
   /* צבע מלא שנעצר בדיוק בגובה הגיבור. קודם הוא גלש 150px מטה בדעיכה,
      וזה בדיוק הערפול שהוסר — הגיבור חייב להיפגש עם השחור בקו נקי */
   .hero::before{content:"";position:absolute;z-index:-1;top:0;left:50%;transform:translateX(-50%);
@@ -88,6 +91,27 @@
     letter-spacing:.24em;padding-left:.24em;color:var(--accent-deep);margin-bottom:20px}
   .hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(1.8rem,5.7vw,2.65rem);
     line-height:1.34;letter-spacing:-.015em;margin-bottom:16px}
+
+  /* ============================================================
+     שורת האמון. שלושת האותות שחסרו לגמרי בדף: הסמכה, אזור פעילות
+     ופרסום בגורם שלישי. כל שלושתם מאומתים מהאתר של נטע — לא נכתבת
+     כאן שום טענה שאי אפשר להצביע על מקורה. בלי מספרים: שנות ותק
+     וכמות פרויקטים לא קיימים באתר, ולהמציא אותם היה הופך את השורה
+     מאות אמון לסיכון.
+
+     הגדלים 13 ו-12.5 כבר קיימים בסולם הטיפוגרפי של הדף. לא נוסף
+     גודל חדש — יש בדף יותר מדי כאלה ממילא.
+
+     \u200Edir="ltr"\u200E על שמות לטיניים: בלעדיו הנקודה של \u200EB.ARC\u200E קופצת לצד
+     הלא נכון בשורה עברית, וזה נראה כמו תקלה */
+  .hero-trust{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;
+    gap:9px 18px;margin:16px auto 0;max-width:660px;padding:0;list-style:none;
+    font-size:13px;line-height:1.5;color:var(--sub-on-light)}
+  .hero-trust li{display:flex;align-items:center;gap:8px}
+  .hero-trust li::before{content:"";flex:0 0 auto;width:5px;height:5px;
+    background:var(--gold);transform:rotate(45deg)}
+  .hero-trust b{font-weight:600;color:var(--text-on-light)}
+  @media (max-width:600px){.hero-trust{gap:7px 14px;font-size:12.5px;max-width:320px}}
   .hero-cta{display:inline-flex;flex-direction:column;align-items:center;gap:3px;background:var(--btn);color:var(--btn-ink);
     padding:14px 34px;border-radius:40px;margin-top:24px;
     box-shadow:0 8px 24px rgba(43,40,37,.25);
@@ -868,6 +892,13 @@
   </picture>
   <div class="brand">נטע גוטמן אדריכלים</div>
   <h1>אני כאן כדי ליצור יחד איתכם<br>את המרחב המדויק עבורכם</h1>
+  <ul class="hero-trust" aria-label="על המשרד">
+    <li><b>אדריכלית בעלת תואר <span dir="ltr">B.ARC</span></b></li>
+    <li><b>7 שנות פעילות</b></li>
+    <li><b>מעל 50 פרויקטים</b></li>
+    <li>שרון · מרכז · צפון</li>
+    <li>התפרסמה במגזין Walls ובפיק אינטריור</li>
+  </ul>
 </header>
 
 <div class="wrap"><div class="greet" id="greet" role="status"></div></div>
