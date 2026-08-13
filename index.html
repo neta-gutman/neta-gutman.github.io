@@ -866,10 +866,17 @@
   .qualify-section .qualify .bk-pop{background:#fff}
   .qualify-section .qualify .bk-cell{color:#a49c92}
   .qualify-section .qualify .bk-nav:disabled{color:#c2bcb2}
-  .qualify-section .qualify .bk-cell.avail{color:var(--text-on-light)}
-  .qualify-section .qualify .bk-cell.avail:hover{background:#eceae4}
-  .qualify-section .qualify .bk-cell.sel{background:var(--btn)!important;color:var(--btn-ink)!important}
-  .qualify-section .qualify .bk-legend .dot{background:#eceae4}
+  /* היום הפנוי היה ריבוע כהה עם טקסט שנהב. בהיפוך הוא נשאר שחור על
+     בז' ונראה כמו חור. עכשיו הוא כרטיס לבן עם מסגרת — אותה שפה בדיוק
+     של כרטיסי התשובות שמעליו — והנבחר הוא זה שמתמלא בכהה */
+  .qualify-section .qualify .bk-cell.avail{
+    background:#fff;color:var(--text-on-light);
+    border:1px solid var(--line);font-weight:700}
+  .qualify-section .qualify .bk-cell.avail:hover{background:#f6f3ed;border-color:var(--gold)}
+  .qualify-section .qualify .bk-cell.sel{
+    background:var(--btn)!important;color:var(--btn-ink)!important;border-color:var(--btn)}
+  .qualify-section .qualify .bk-cell.today{box-shadow:inset 0 0 0 1.5px var(--gold)}
+  .qualify-section .qualify .bk-legend .dot{background:#fff;border:1px solid var(--line)}
   .qualify-section .qualify .qcta,.qualify-section .qualify .bk-go{
     background:var(--btn);color:var(--btn-ink)}
   /* המחוון היה שלושה קווים כהים על שחור. על בז' הם נקראו כשלושה
@@ -1250,9 +1257,11 @@
           <div class="bk-anchor">
           <div class="bk-pop" id="bkPop" role="dialog" aria-label="בחירת תאריך" hidden>
             <div class="bk-pop-head">
-              <button class="bk-nav" id="bkPrev" type="button" aria-label="חודש קודם">›</button>
-              <div class="bk-month" id="bkMonth"></div>
+              <!-- הסדר הפוך בכוונה. ב-RTL "הבא" נמצא משמאל ומצביע שמאלה,
+                   ו"הקודם" מימין ומצביע ימינה. לפני התיקון שניהם הצביעו פנימה -->
               <button class="bk-nav" id="bkNext" type="button" aria-label="חודש הבא">‹</button>
+              <div class="bk-month" id="bkMonth"></div>
+              <button class="bk-nav" id="bkPrev" type="button" aria-label="חודש קודם">›</button>
             </div>
             <div class="bk-dow" aria-hidden="true"><span>א׳</span><span>ב׳</span><span>ג׳</span><span>ד׳</span><span>ה׳</span><span>ו׳</span><span>ש׳</span></div>
             <div class="bk-grid" id="bkGrid" role="grid" aria-label="בחירת יום"></div>
