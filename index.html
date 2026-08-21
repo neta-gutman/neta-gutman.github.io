@@ -1740,9 +1740,18 @@
     var GCAL_KEY = 'AIzaSyBqPYx0sy8E4VH0qAKCKYn1khI1F3biqBQ';
 
     /* חוקי הזמינות של נטע */
-    var WORK_DAYS   = [0,1,2,3,4];   /* ראשון עד חמישי */
-    var SLOT_FIRST  = 10*60;         /* 10:00 */
-    var SLOT_LAST   = 16*60;         /* הפגישה האחרונה מתחילה ב-16:00 ונגמרת ב-17:00 */
+    /* שעות הזמינות של נטע, לפי יום (בקשתה, 21/08/2026):
+         ראשון + רביעי            15:00-19:00
+         שני + שלישי + חמישי      10:00-16:00
+       הערך השני הוא השעה שבה הפגישה האחרונה כבר **הסתיימה**, ולכן היום
+       שנגמר ב-19:00 מציע 15/16/17/18 והיום שנגמר ב-16:00 מציע 10 עד 15. */
+    var DAY_HOURS = {
+      0: [15*60, 19*60],             /* ראשון  */
+      1: [10*60, 16*60],             /* שני    */
+      2: [10*60, 16*60],             /* שלישי  */
+      3: [15*60, 19*60],             /* רביעי  */
+      4: [10*60, 16*60]              /* חמישי  */
+    };                               /* שישי ושבת סגורים — פשוט לא מופיעים כאן */
     var SLOT_LEN    = 60;
     var MIN_NOTICE  = 3*60;          /* אי אפשר לתפוס מועד שמתחיל בעוד פחות משלוש שעות */
     /* 14 יום קדימה בלבד — בקשת נטע (21/08/2026). היומן נראה בדיוק אותו דבר
@@ -1894,11 +1903,11 @@
       for(var day=1;day<=dim;day++){
         var d=new Date(y,m,day); d.setHours(0,0,0,0);
         var key=ymd(d);
-        if(WORK_DAYS.indexOf(d.getDay())<0) continue;
+        var hours=DAY_HOURS[d.getDay()]; if(!hours) continue;
         if(HOLIDAYS.indexOf(key)>=0) continue;
         if(key<now.date || key>horizon) continue;
         var free=[], taken=[];
-        for(var t=SLOT_FIRST;t<=SLOT_LAST;t+=SLOT_LEN){
+        for(var t=hours[0]; t+SLOT_LEN<=hours[1]; t+=SLOT_LEN){
           /* שעה שחלפה או בתוך חלון ההתראה פשוט לא מוצגת — אין בה שום ערך */
           if(key===now.date && t < now.min+MIN_NOTICE) continue;
           if(isBlocked(busy,key,t,t+SLOT_LEN)) taken.push(hhmm(t));
