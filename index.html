@@ -548,6 +548,11 @@
   .bk-cell.sel{background:var(--accent)!important;color:#fff!important;font-weight:700;box-shadow:0 4px 12px rgba(166,127,121,.4)}
   .bk-cell:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
   .bk-legend{display:flex;align-items:center;gap:7px;margin-top:12px;font-size:12px;color:var(--muted)}
+  .bk-fallback{margin:10px 2px 0;font-size:13px;line-height:1.6;color:var(--muted);text-align:center}
+  .bk-fallback a{color:inherit;font-weight:600;text-decoration:underline;text-underline-offset:3px;
+    text-decoration-thickness:1px;transition:color .18s var(--ease)}
+  .bk-fallback a:hover{color:var(--accent-deep)}
+  .bk-fallback a:focus-visible{outline:2px solid var(--brass);outline-offset:3px;border-radius:4px}
   .bk-legend .dot{width:11px;height:11px;border-radius:4px;background:#e9efe6;border:1px solid #cadbc9}
   .bk-grid.bk-skl .bk-cell{background:linear-gradient(90deg,var(--ink-soft),#211d1a,var(--ink-soft));background-size:200% 100%;
     animation:shim 1.2s infinite;color:transparent;border-radius:11px;cursor:default}
@@ -752,6 +757,10 @@
   .qualify-section .bk-cell.full{background:rgba(176,82,75,.16);color:#c98d86}
   .qualify-section .bk-cell.today{box-shadow:inset 0 0 0 1.5px rgba(201,160,107,.5)}
   .qualify-section .bk-legend{color:var(--q-gold);font-size:14px}
+  /* הסקציה כהה — בלי זה ההערה יוצאת אפורה על רקע כהה ולא נקראת */
+  .qualify-section .bk-fallback{color:var(--q-sub)}
+  .qualify-section .bk-fallback a{color:var(--q-gold)}
+  .qualify-section .bk-fallback a:hover{color:var(--q-ivory)}
   .qualify-section .bk-legend .dot{background:#1d1a17;border-color:var(--q-card-border)}
 
   .qualify-section .bk-times-label{color:var(--q-sub)}
@@ -1271,6 +1280,10 @@
             <div class="bk-legend"><span class="dot"></span> ימים פנויים לשיחה</div>
           </div>
           </div><!-- /bk-anchor -->
+          <!-- מוצא לליד שהיומן לא מתאים לו, במקום שינטוש בשקט (בקשת נטע 21/08/2026).
+               יושב מתחת לשדה התאריך ולכן נראה גם למי שסגר את היומן בלי לבחור. -->
+          <p class="bk-fallback">לא מצאתם מועד שמתאים?
+            <a href="https://wa.me/972504322412" target="_blank" rel="noopener">כתבו לי בוואטסאפ</a></p>
           <div class="bk-times-wrap" id="bkTimesWrap" hidden>
             <div class="bk-times-label" id="bkTimesLabel"></div>
             <div class="bk-times" id="bkTimes" role="listbox" aria-label="בחירת שעה"></div>
