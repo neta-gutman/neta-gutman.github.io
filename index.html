@@ -1824,9 +1824,23 @@
     function parse(s){return new Date(s+'T00:00:00');}
     function human(y,t){var d=parse(y);return 'יום '+DAYS[d.getDay()]+', '+d.getDate()+' ב'+MONTHS[d.getMonth()]+(t?(' · '+t):'');}
     function compact(y,t){var d=parse(y);return 'יום '+DAYS[d.getDay()]+', '+d.getDate()+'.'+(d.getMonth()+1)+(t?(' · '+t):'');}
-    /* Neta's Airtable dateTime column displays in UTC (can't be changed via API), so we send the
-       Israel wall-clock time labelled as UTC — she sees exactly the hour that was picked (11:00 → 11:00). */
-    function ilISO(dateStr,timeStr){ return dateStr+'T'+timeStr+':00.000Z'; }
+    /* שעון-קיר ישראלי ← רגע אמיתי בשעון עולמי, עם מודעות לשעון קיץ.
+       אל תחזיר לכאן את הקיצור הישן dateStr+'T'+timeStr+':00.000Z' — הוא הדביק
+       תווית שעון עולמי על שעה ישראלית, ולכן כל עמודה שמוצגת בשעון ירושלים
+       הראתה את הפגישה שלוש שעות מאוחר מדי (11:30 שנבחר הופיע כ-14:30).
+       ההיפוך נעשה מול ilParts, אותו מנוע שמחשב את הזמינות — כך שהדף,
+       היומן והעמודה באיירטייבל מדברים באותו שעון, גם אחרי מעבר לשעון חורף. */
+    function ilISO(dateStr,timeStr){
+      var want=Date.UTC(+dateStr.slice(0,4), +dateStr.slice(5,7)-1, +dateStr.slice(8,10),
+                        +timeStr.slice(0,2), +timeStr.slice(3,5));
+      var t=want;                       /* ניחוש ראשון: כאילו הבחירה כבר בשעון עולמי */
+      for(var i=0;i<2;i++){             /* סבב שני מיישר גם בחירה שנופלת על מעבר שעון */
+        var p=ilParts(new Date(t));
+        var got=Date.UTC(+p.date.slice(0,4), +p.date.slice(5,7)-1, +p.date.slice(8,10), 0, p.min);
+        t+=want-got;
+      }
+      return new Date(t).toISOString();
+    }
 
     var today=new Date();today.setHours(0,0,0,0);var todayY=ymd(today);
     var minMonth=new Date(today.getFullYear(),today.getMonth(),1);
