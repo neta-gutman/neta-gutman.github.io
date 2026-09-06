@@ -1365,14 +1365,24 @@
   var rid = p.get('rid');
   window.__recordId = (rid && /^rec[A-Za-z0-9]+$/.test(rid)) ? rid : null;
   /* מדידת פתיחת קישור (06/09/2026): ליד שהגיע עם rid מהוואטסאפ מקבל חותמת "הקישור נפתח" ומונה
-     "פתיחות קישור" באיירטייבל, דרך תרחיש Make 7266968. קריאה אחת בטעינה, לא חוסמת, בלי המתנה לתשובה.
-     בלי rid לא נשלח כלום. */
+     "פתיחות קישור" באיירטייבל, דרך תרחיש Make 7266968. קריאה אחת לכל דפדפן, לא חוסמת, בלי המתנה לתשובה.
+     בלי rid לא נשלח כלום.
+     חיסכון בפעולות: אחרי פינג שהצליח נשמר דגל ב-localStorage לפי rid, ורענון או חזרה לדף באותו מכשיר
+     לא שולחים שוב (כל פתיחה חוזרת הייתה עולה 3 פעולות במייק ו-2 קריאות איירטייבל). אם הפינג נכשל,
+     אין דגל והניסיון חוזר בטעינה הבאה. */
   if(window.__recordId){
-    try{
-      fetch('https://hook.eu1.make.com/15edjhwlvnvyqx2wjvynzhqinca4t79s',{method:'POST',
-        headers:{'Content-Type':'application/json'},body:JSON.stringify({rid:window.__recordId}),
-        keepalive:true}).catch(function(){});
-    }catch(e){}
+    (function(){
+      var okey='neta_open_'+window.__recordId, seen=false;
+      try{ seen=!!localStorage.getItem(okey); }catch(e){}
+      if(seen) return;
+      try{
+        fetch('https://hook.eu1.make.com/15edjhwlvnvyqx2wjvynzhqinca4t79s',{method:'POST',
+          headers:{'Content-Type':'application/json'},body:JSON.stringify({rid:window.__recordId}),
+          keepalive:true}).then(function(r){
+            if(r&&r.ok){ try{ localStorage.setItem(okey,String(Date.now())); }catch(e){} }
+          }).catch(function(){});
+      }catch(e){}
+    })();
   }
 
   /* 2) reveal on scroll */
