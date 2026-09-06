@@ -1364,6 +1364,16 @@
      כשהוא קיים אנחנו כבר יודעים מי המבקר, ולכן מדלגים על שלב השארת הפרטים. */
   var rid = p.get('rid');
   window.__recordId = (rid && /^rec[A-Za-z0-9]+$/.test(rid)) ? rid : null;
+  /* מדידת פתיחת קישור (06/09/2026): ליד שהגיע עם rid מהוואטסאפ מקבל חותמת "הקישור נפתח" ומונה
+     "פתיחות קישור" באיירטייבל, דרך תרחיש Make 7266968. קריאה אחת בטעינה, לא חוסמת, בלי המתנה לתשובה.
+     בלי rid לא נשלח כלום. */
+  if(window.__recordId){
+    try{
+      fetch('https://hook.eu1.make.com/15edjhwlvnvyqx2wjvynzhqinca4t79s',{method:'POST',
+        headers:{'Content-Type':'application/json'},body:JSON.stringify({rid:window.__recordId}),
+        keepalive:true}).catch(function(){});
+    }catch(e){}
+  }
 
   /* 2) reveal on scroll */
   if(reduce){ document.querySelectorAll('.rev').forEach(function(el){el.classList.add('in');}); }
